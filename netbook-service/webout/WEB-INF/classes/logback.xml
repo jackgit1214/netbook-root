@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- 应用名称 -->
+	<property name="APP_NAME" value="netbook" />
+	<!--日志文件的保存路径,首先查找系统属性-Dlog.dir,如果存在就使用其；否则，在当前目录下创建名为logs目录做日志存放的目录 -->
+	<property name="LOG_HOME" value="/${APP_NAME}" />
+	<!-- 日志输出格式 -->
+	<property name="ENCODER_PATTERN"
+			  value="%d{yyyy-MM-dd  HH:mm:ss.SSS} [%thread] %-5level %logger{80} - %msg%n" />
+	<contextName>${APP_NAME}</contextName>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{HH:mm:ss.SSS} %-5level %logger{80} - %msg%n</Pattern>
+		</encoder>
+	</appender>
+	<appender name="fileAppender" class="ch.qos.logback.core.FileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>debug</level>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/logs/netbook.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>7</maxHistory>
+			<maxFileSize>1000K</maxFileSize>
+			<maxBackupIndex>500</maxBackupIndex>
+		</rollingPolicy>
+<!--	    <file>${LOG_HOME}/logs/netbook.%d{yyyy-MM-dd}.log</file>-->
+	    <encoder><!-- 必须指定，否则不会往文件输出内容 -->
+	        <pattern>%d{HH:mm:ss.SSS} %-5level %logger{80} - %msg%n</pattern>  
+	    </encoder>  
+	    <append>true</append>  
+	    <prudent>false</prudent>  
+	</appender>
+
+	<!-- 错误日志：用于将错误日志输出到独立文件 -->
+	<appender name="ERROR_FILE"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/logs/netBookError.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>7</maxHistory>
+			<maxFileSize>1000K</maxFileSize>
+			<maxBackupIndex>500</maxBackupIndex>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>${ENCODER_PATTERN}</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>WARN</level>
+		</filter>
+	</appender>
+
+	<root>
+		<level value="debug" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="fileAppender" />
+		<appender-ref ref="ERROR_FILE" />
+	</root>
+
+	<!--==================================指定包的日志======================================================-->
+	<!--这个logger没有指定appender，它会继承root节点中定义的那些appender     -->
+	<logger name="org.springframework" level="info">
+		<!-- <appender-ref ref="stdout"/>-->
+	</logger>
+
+<!--	&lt;!&ndash;通过 LoggerFactory.getLogger("com.mchange") 可以获取到这个logger-->
+<!--        additivity="false" 没有它  输出双倍   自身的和继承的root的appender&ndash;&gt;-->
+	<logger name="com.mchange" level="info" additivity="false">
+<!--		<appender-ref ref="stdout"/>-->
+<!--		<appender-ref ref="file"/>-->
+	</logger>
+
+	<logger name="com.ibatis" level="debug" additivity="false">
+		<!--		<appender-ref ref="stdout"/>-->
+		<!--		<appender-ref ref="file"/>-->
+	</logger>
+
+	<logger name="org.apache.http" level="debug" additivity="false">
+		<!--		<appender-ref ref="stdout"/>-->
+		<!--		<appender-ref ref="file"/>-->
+	</logger>
+	<logger name="com.book" level="debug" >
+<!--				<appender-ref ref="stdout"/>-->
+<!--				<appender-ref ref="fileAppender"/>-->
+	</logger>
+	<logger name="edu.uci.ics.crawler4j" level="info" >
+<!--		<appender-ref ref="stdout"/>-->
+<!--		<appender-ref ref="fileAppender"/>-->
+	</logger>
+	<logger name="org.mybatis" level="info" >
+<!--		<appender-ref ref="stdout"/>-->
+<!--		<appender-ref ref="fileAppender"/>-->
+	</logger>
+
+</configuration>
+
