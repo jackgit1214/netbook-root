@@ -1,0 +1,30 @@
+/*eslint-disable*/
+import React from "react";
+import PropTypes from "prop-types";
+// @material-ui/core components
+import { makeStyles } from "@material-ui/core/styles";
+import ListItem from "@material-ui/core/ListItem";
+import List from "@material-ui/core/List";
+// core components
+import styles from "assets/jss/material-dashboard-react/components/footerStyle.js";
+import Link from '@material-ui/core/Link/Link';
+import Typography from '@material-ui/core/Typography/Typography';
+
+const useStyles = makeStyles(styles);
+
+export default function Footer(props) {
+  const classes = useStyles();
+  return (
+      // style={{border:"1px solid red"}}
+    <footer className={classes.footer} >
+        <Typography variant="body2" color="textSecondary" align="center">
+            {'Copyright © '}
+            <Link color="inherit" href="https://material-ui.com/">
+                Your Website
+            </Link>{''}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
+    </footer>
+  );
+}
