@@ -2,6 +2,7 @@ package com.book.service;
 
 import com.book.model.Chapter;
 import com.framework.mybatis.service.IBusinessService;
+
 import java.util.List;
 
 public interface ChapterService extends IBusinessService<Chapter> {

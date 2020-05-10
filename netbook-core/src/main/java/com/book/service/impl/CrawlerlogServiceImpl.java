@@ -78,11 +78,11 @@ public class CrawlerlogServiceImpl extends AbstractBusinessService<Crawlerlog> i
     public List<Crawlerlog> findObjectWithBlob(QueryModel queryModel) {
 
         int totalRow = crawlerlogMapper.countByCondition(queryModel);
-        if (totalRow<=0)
+        if (totalRow <= 0)
             return null;
         //取所有数据
-        PageResult<Crawlerlog>  pageInfos = new PageResult<>(1,totalRow);
-        crawlerlogMapper.selectByConditionWithBLOBs(queryModel,pageInfos);
+        PageResult<Crawlerlog> pageInfos = new PageResult<>(1, totalRow);
+        crawlerlogMapper.selectByConditionWithBLOBs(queryModel, pageInfos);
         return pageInfos.getPageDatas();
     }
 
@@ -103,26 +103,26 @@ public class CrawlerlogServiceImpl extends AbstractBusinessService<Crawlerlog> i
 
             String html = crawlerLog.getUrlContent();
             Document docMain = Jsoup.parse(html);
-             WebPageHandle pageHandle = null;
-            if (docMain.select("div.main>div.fl_left").size()>0)
+            WebPageHandle pageHandle = null;
+            if (docMain.select("div.main>div.fl_left").size() > 0)
                 pageHandle = handleFactory.createPageHandle(BookCatalogHandle.class);
-            else if (docMain.select("div.main>div.submenu").size()>0) //是首页
+            else if (docMain.select("div.main>div.submenu").size() > 0) //是首页
                 pageHandle = handleFactory.createPageHandle(MainPageHandle.class);
-            else if (docMain.select("div.main>div.ml_content").size()>0) //某小说的目录
+            else if (docMain.select("div.main>div.ml_content").size() > 0) //某小说的目录
                 pageHandle = handleFactory.createPageHandle(NovelCatalogHandle.class);
-            else if (docMain.select("div.main>div.main_content").size()>0) //小说的内容
+            else if (docMain.select("div.main>div.main_content").size() > 0) //小说的内容
                 pageHandle = handleFactory.createPageHandle(NovelContentHandle.class);
             else
-                return ;
+                return;
 
-            List<String> seeds = pageHandle.handelPage(html,crawlerLog.getCrawlerUrl());
+            List<String> seeds = pageHandle.handelPage(html, crawlerLog.getCrawlerUrl());
 
             crawlerLog.setIsFinished("2");
             this.save(crawlerLog);
-            if (seeds!=null)  //不为空则处理成功！！！
-                result.put(id,true);
+            if (seeds != null)  //不为空则处理成功！！！
+                result.put(id, true);
             else
-                result.put(id,false);
+                result.put(id, false);
         });
         return result;
     }

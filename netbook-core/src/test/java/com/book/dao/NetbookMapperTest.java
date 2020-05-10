@@ -14,7 +14,7 @@ public class NetbookMapperTest extends BaseTest {
     private NetbookMapper netbookMapper;
 
     @Test
-    public void test1(){
+    public void test1() {
         NetbookWithBLOBs netbook = new NetbookWithBLOBs();
         netbook.setAuthor("test");
         netbook.setBookName("name");

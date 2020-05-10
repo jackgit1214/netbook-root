@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -81,7 +81,7 @@ public class HtmlContentHandler extends DefaultHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes)
-        throws SAXException {
+            throws SAXException {
         Element element = HtmlFactory.getElement(localName);
 
         if ((element == Element.A) || (element == Element.AREA) || (element == Element.LINK)) {
@@ -96,7 +96,7 @@ public class HtmlContentHandler extends DefaultHandler {
                 addToOutgoingUrls(imgSrc, localName);
             }
         } else if ((element == Element.IFRAME) || (element == Element.FRAME) ||
-                   (element == Element.EMBED) || (element == Element.SCRIPT)) {
+                (element == Element.EMBED) || (element == Element.SCRIPT)) {
             String src = attributes.getValue("src");
             if (src != null) {
                 addToOutgoingUrls(src, localName);
@@ -165,7 +165,7 @@ public class HtmlContentHandler extends DefaultHandler {
             anchorFlag = false;
             if (curUrl != null) {
                 String anchor =
-                    anchorText.toString().replaceAll("\n", " ").replaceAll("\t", " ").trim();
+                        anchorText.toString().replaceAll("\n", " ").replaceAll("\t", " ").trim();
                 if (!anchor.isEmpty()) {
                     if (anchor.length() > MAX_ANCHOR_LENGTH) {
                         anchor = anchor.substring(0, MAX_ANCHOR_LENGTH) + "...";

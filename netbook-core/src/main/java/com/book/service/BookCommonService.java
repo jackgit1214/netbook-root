@@ -10,9 +10,9 @@ import java.util.Map;
 
 public interface BookCommonService {
 
-    boolean saveCrawlerLog(String url, String urlContent, Date sTime, Date eTime,String isFinish);
+    boolean saveCrawlerLog(String url, String urlContent, Date sTime, Date eTime, String isFinish);
 
-    boolean saveCrawlerLog(String url, String urlContent, Date sTime, Date eTime,String isFinish,String taskId);
+    boolean saveCrawlerLog(String url, String urlContent, Date sTime, Date eTime, String isFinish, String taskId);
 
     boolean isCrawlerRecord(String url);
 
@@ -20,5 +20,5 @@ public interface BookCommonService {
 
     void handleCrawlingContent();
 
-    Map<String,Integer> getHandleResult();
+    Map<String, Integer> getHandleResult();
 }

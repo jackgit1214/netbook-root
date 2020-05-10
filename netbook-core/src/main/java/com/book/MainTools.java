@@ -58,7 +58,7 @@ public class MainTools {
     @Value("#{configProperties['threadNumber']}")
     private int threadNum;
 
-    private CrawlConfig getConfig(){
+    private CrawlConfig getConfig() {
         CrawlConfig config = new CrawlConfig();
 
         config.setCrawlStorageFolder("/tmp/crawler4j/");
@@ -80,7 +80,7 @@ public class MainTools {
         return config;
     }
 
-    private CrawlController getController() throws Exception{
+    private CrawlController getController() throws Exception {
         CrawlConfig config = this.getConfig();
         PageFetcher pageFetcher = new PageFetcher(config);
         RobotstxtConfig robotstxtConfig = new RobotstxtConfig();
@@ -93,7 +93,7 @@ public class MainTools {
     private CrawlController.WebCrawlerFactory<CustomCrawlerServices> getFactory() {
         customCrawlerServices.setRegex("https://www.999xs.com/files/article/html/120/120035/.*");
         AtomicInteger numSeenImages = new AtomicInteger();
-        CrawlController.WebCrawlerFactory<CustomCrawlerServices> factory =  new CrawlController.WebCrawlerFactory(){
+        CrawlController.WebCrawlerFactory<CustomCrawlerServices> factory = new CrawlController.WebCrawlerFactory() {
             @Override
             public WebCrawler newInstance() throws Exception {
                 customCrawlerServices.setNumSeenImages(numSeenImages);
@@ -104,82 +104,80 @@ public class MainTools {
         return factory;
     }
 
-    private List<String> composeSeeds(){
+    private List<String> composeSeeds() {
         String rootSeed = this.seeds;
         List<String> seeds = new ArrayList<>();
-        Map<String,Integer> typeSeeds = new HashMap<>();
-        typeSeeds.put("xuanhuan",931);
-        typeSeeds.put("xianxia",367);
-        typeSeeds.put("dushi",1714);
-        typeSeeds.put("junshi",326);
-        typeSeeds.put("wangyou",51);
-        typeSeeds.put("kehuan",503);
-        typeSeeds.put("kongbu",57);
-        typeSeeds.put("qita",332);
+        Map<String, Integer> typeSeeds = new HashMap<>();
+        typeSeeds.put("xuanhuan", 931);
+        typeSeeds.put("xianxia", 367);
+        typeSeeds.put("dushi", 1714);
+        typeSeeds.put("junshi", 326);
+        typeSeeds.put("wangyou", 51);
+        typeSeeds.put("kehuan", 503);
+        typeSeeds.put("kongbu", 57);
+        typeSeeds.put("qita", 332);
         seeds.add(rootSeed);
-        typeSeeds.forEach((k,value)->{
+        typeSeeds.forEach((k, value) -> {
             int end = value.intValue();
-            for(int i =1;i<=end;i++){
-                seeds.add(rootSeed+"/"+k+"/"+i+".html");
+            for (int i = 1; i <= end; i++) {
+                seeds.add(rootSeed + "/" + k + "/" + i + ".html");
             }
         });
         return seeds;
     }
 
     /**
-     *
-     * @param args
-     *   1、执行的是那个方法，1为抓取网页内容，2为后抓取事后的处理。
-     *   2、种子数量
+     * @param args 1、执行的是那个方法，1为抓取网页内容，2为后抓取事后的处理。
+     *             2、种子数量
      * @throws Exception
      */
-    public static void  main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
 
         String[] configLocations = new String[]{"classpath:application-core.xml"};
         ApplicationContext ac = new ClassPathXmlApplicationContext(configLocations);
-        MainTools mainTools= (MainTools) ac.getBean("mainTools");
-        if (args.length>0 && args[0].equals("2")) {
+        MainTools mainTools = (MainTools) ac.getBean("mainTools");
+        if (args.length > 0 && args[0].equals("2")) {
             int threadNum = mainTools.threadNum;
-            if (args.length==2)
+            if (args.length == 2)
                 threadNum = Integer.parseInt(args[1]);
             mainTools.customHandleServices.bookHandle(threadNum);
-            return ;
+            return;
         }
         CrawlController controller = mainTools.getController();
-        if (args.length>0 && args[0].equals("3")){ //等于3时，从抓取失败的地址中取种子
+        if (args.length > 0 && args[0].equals("3")) { //等于3时，从抓取失败的地址中取种子
             List<String> seeds = mainTools.bookCommonServiceImpl.getCrawlerUrl("0");
-            if (seeds==null)
-                return ;
-            for (String seed:seeds){
-               // System.out.println(seed);
+            if (seeds == null)
+                return;
+            for (String seed : seeds) {
+                // System.out.println(seed);
                 controller.addSeed(seed);
             }
         }
 
         System.out.println(System.currentTimeMillis());
-        if (args.length>0 && args[0].equals("5")){
+        if (args.length > 0 && args[0].equals("5")) {
             List<String> seeds = mainTools.composeSeeds();
-            for (String seed:seeds){
+            for (String seed : seeds) {
                 // System.out.println(seed);
                 controller.addSeed(seed);
             }
         }
         System.out.println(System.currentTimeMillis());
-        if (args.length>0 && args[0].equals("4")){
+        if (args.length > 0 && args[0].equals("4")) {
             String test = mainTools.customSeeds;
             if (!test.endsWith("\\"))
-                test = test+"\\";
-            for (int i=mainTools.customStart;i<=mainTools.customEnd;i++){
-                controller.addSeed(test+i+".html");
+                test = test + "\\";
+            for (int i = mainTools.customStart; i <= mainTools.customEnd; i++) {
+                controller.addSeed(test + i + ".html");
             }
         }
 
-        if (args.length<=0 ||(args.length==1 && args[0].equals("1"))){
+        if (args.length <= 0 || (args.length == 1 && args[0].equals("1"))) {
 
-           String[]  tmpSeeds = mainTools.seeds.split(",");
-           for(String seed:tmpSeeds){
-               controller.addSeed(seed);
-           }
+            String[] tmpSeeds = mainTools.seeds.split(",");
+            for (String seed : tmpSeeds) {
+                controller.addSeed(seed);
+            }
             controller.addSeed("https://www.999xs.com/files/article/html/120/120035/");
         }
         Long sTime = System.currentTimeMillis();

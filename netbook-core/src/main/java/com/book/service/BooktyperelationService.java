@@ -2,6 +2,7 @@ package com.book.service;
 
 import com.book.model.Booktyperelation;
 import com.framework.mybatis.service.IBusinessService;
+
 import java.util.List;
 
 public interface BooktyperelationService extends IBusinessService<Booktyperelation> {

@@ -24,7 +24,7 @@ public class BooktypeServiceImpl extends AbstractBusinessService<Booktype> imple
     @Autowired
     private BooktypeMapper booktypeMapper;
 
-    private static Map<String,Booktype> bookTypesKey ;
+    private static Map<String, Booktype> bookTypesKey;
 
     public BaseDao getDao() {
         return this.booktypeMapper;
@@ -32,36 +32,37 @@ public class BooktypeServiceImpl extends AbstractBusinessService<Booktype> imple
 
     public int delete(String recordId) {
         int rows = this.booktypeMapper.deleteByPrimaryKey(recordId);
-        this.logger.debug("rows: {}",rows);
+        this.logger.debug("rows: {}", rows);
         return rows;
     }
 
     public int delete(String[] recordIds) {
-        int rows=0;
+        int rows = 0;
         QueryModel queryModel = new QueryModel();
-        for (String id : recordIds){
+        for (String id : recordIds) {
             QueryModel.Criteria criteria = queryModel.createCriteria();
-            criteria.andEqualTo("IdBookType",id);
-            rows = rows + this.booktypeMapper.deleteByPrimaryKey(id);}
-            this.logger.debug("rows: {}",rows);
-            return rows;
+            criteria.andEqualTo("IdBookType", id);
+            rows = rows + this.booktypeMapper.deleteByPrimaryKey(id);
         }
+        this.logger.debug("rows: {}", rows);
+        return rows;
+    }
 
     public int save(Booktype record) {
         if (this.isExist(record.getAliasName())) {
             this.logger.debug("已存在此类型...");
             return 0;
         }
-        int rows=0;
-        if (record.getIdBookType()==null || record.getIdBookType()=="") {
+        int rows = 0;
+        if (record.getIdBookType() == null || record.getIdBookType() == "") {
             String uuid = UUIDUtil.getUUID();
             record.setIdBookType(uuid);
             rows = this.booktypeMapper.insert(record);
-            bookTypesKey.put(record.getAliasName(),record); //更新后，变更静态内容
+            bookTypesKey.put(record.getAliasName(), record); //更新后，变更静态内容
         } else {
             rows = this.booktypeMapper.updateByPrimaryKey(record);
         }
-        this.logger.debug("rows: {}",rows);
+        this.logger.debug("rows: {}", rows);
         return rows;
     }
 
@@ -86,9 +87,9 @@ public class BooktypeServiceImpl extends AbstractBusinessService<Booktype> imple
         bookTypesKey = new HashMap<>();
         List<Booktype> bookTypes = this.findAllObjects();
 
-        bookTypes.forEach(bookType->{
+        bookTypes.forEach(bookType -> {
             String aliasName = bookType.getAliasName();
-            bookTypesKey.put(aliasName,bookType);
+            bookTypesKey.put(aliasName, bookType);
         });
     }
 }

@@ -23,7 +23,7 @@ public interface CrawlerlogService extends IBusinessService<Crawlerlog> {
 
     List<Crawlerlog> findObjectWithBlob(QueryModel queryModel, PageResult<Crawlerlog> page);
 
-    Map<String,Boolean> handlePageContent(List<String> ids);
+    Map<String, Boolean> handlePageContent(List<String> ids);
 
     int countByCondition(QueryModel queryModel);
 }

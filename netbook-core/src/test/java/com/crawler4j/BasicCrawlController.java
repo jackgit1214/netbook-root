@@ -62,7 +62,7 @@ public class BasicCrawlController {
 //        controller.addSeed("https://www.ics.uci.edu/");
 //        controller.addSeed("https://www.ics.uci.edu/~lopes/");
 //        controller.addSeed("https://www.ics.uci.edu/~welling/");
-            controller.addSeed("https://www.999xs.com/files/article/html/120/120035/");
+        controller.addSeed("https://www.999xs.com/files/article/html/120/120035/");
         // Number of threads to use during crawling. Increasing this typically makes crawling faster. But crawling
         // speed depends on many other factors as well. You can experiment with this to figure out what number of
         // threads works best for you.

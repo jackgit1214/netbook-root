@@ -13,13 +13,13 @@ import org.apache.http.protocol.HttpContext;
  * Class to work around the exception thrown by the SSL subsystem when the server is incorrectly
  * configured for SNI. In this case, it may return a warning: "handshake alert: unrecognized_name".
  * Browsers usually ignore this warning, while Java SSL throws an exception.
- *
+ * <p>
  * This class extends the SSLConnectionSocketFactory to remove the hostname used in the request,
  * which
  * basically disabled SNI for this host.
- *
+ * <p>
  * Based on the code provided by Ivan Shcheklein, available at:
- *
+ * <p>
  * http://stackoverflow.com/questions/7615645/ssl-handshake-alert-unrecognized-name-error-since
  * -upgrade-to-java-1-7-0/28571582#28571582
  */

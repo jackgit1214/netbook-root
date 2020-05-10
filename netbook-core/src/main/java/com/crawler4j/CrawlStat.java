@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,43 +17,43 @@
 package com.crawler4j;
 
 public class CrawlStat {
-	private int totalProcessedPages;
+    private int totalProcessedPages;
     private long totalLinks;
     private long totalTextSize;
 
     public int getTotalProcessedPages() {
-            return totalProcessedPages;
+        return totalProcessedPages;
     }
 
     public void setTotalProcessedPages(int totalProcessedPages) {
-            this.totalProcessedPages = totalProcessedPages;
+        this.totalProcessedPages = totalProcessedPages;
     }
 
     public void incProcessedPages() {
-            this.totalProcessedPages++;
+        this.totalProcessedPages++;
     }
 
     public long getTotalLinks() {
-            return totalLinks;
+        return totalLinks;
     }
 
     public void setTotalLinks(long totalLinks) {
-            this.totalLinks = totalLinks;
+        this.totalLinks = totalLinks;
     }
 
     public long getTotalTextSize() {
-            return totalTextSize;
+        return totalTextSize;
     }
 
     public void setTotalTextSize(long totalTextSize) {
-            this.totalTextSize = totalTextSize;
+        this.totalTextSize = totalTextSize;
     }
 
     public void incTotalLinks(int count) {
-            this.totalLinks += count;
+        this.totalLinks += count;
     }
 
     public void incTotalTextSize(int count) {
-            this.totalTextSize += count;
+        this.totalTextSize += count;
     }
 }

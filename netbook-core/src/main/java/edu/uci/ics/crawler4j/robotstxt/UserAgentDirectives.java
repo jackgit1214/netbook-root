@@ -30,10 +30,14 @@ public class UserAgentDirectives {
      * that the most specific match (= longest) match comes first.
      */
     static class PathComparator implements Comparator<PathRule> {
-        /** The path to compare the path rules with */
+        /**
+         * The path to compare the path rules with
+         */
         String path;
 
-        /** Initialize with the path */
+        /**
+         * Initialize with the path
+         */
         PathComparator(String path) {
             this.path = path;
         }
@@ -43,8 +47,8 @@ public class UserAgentDirectives {
          * If lhs matches and rhs does not, this will return -1
          * If rhs matches and lhs does not, this will return 1
          * If both match or both do not match,, this will return the result of
-         *    a numeric comparison of the length of both patterns, where
-         *    the longest (=most specific) one will come first.
+         * a numeric comparison of the length of both patterns, where
+         * the longest (=most specific) one will come first.
          */
         @Override
         public int compare(PathRule lhs, PathRule rhs) {
@@ -170,14 +174,14 @@ public class UserAgentDirectives {
      * Add a rule to the list of rules for this user agent.
      * Valid rules are: sitemap, crawl-delay, host, allow and disallow.
      * These are based on the wikipedia article at:
-     *
+     * <p>
      * https://en.wikipedia.org/wiki/Robots_exclusion_standard
-     *
+     * <p>
      * and the Google documentation at:
-     *
+     * <p>
      * https://support.google.com/webmasters/answer/6062596
      *
-     * @param rule The name of the rule
+     * @param rule  The name of the rule
      * @param value The value of the rule
      */
     public void add(String rule, String value) {

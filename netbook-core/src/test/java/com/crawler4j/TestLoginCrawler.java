@@ -33,7 +33,7 @@ public class TestLoginCrawler extends BaseTest {
     @Autowired
     private CustomHandleServices customHandleServices;
 
-   private CrawlConfig getConfig(){
+    private CrawlConfig getConfig() {
         CrawlConfig config = new CrawlConfig();
 
         config.setCrawlStorageFolder("/tmp/crawler4j/");
@@ -49,26 +49,26 @@ public class TestLoginCrawler extends BaseTest {
         config.setIncludeBinaryContentInCrawling(false);
         config.setResumableCrawling(false);
 
-       String loginurl = "https://weibo.com/login.php";
-       FormAuthInfo formAuthInfo =null;
-       try {
+        String loginurl = "https://weibo.com/login.php";
+        FormAuthInfo formAuthInfo = null;
+        try {
 
-           formAuthInfo = new FormAuthInfo("hongyullj@sina.com","LLJmxy1214",loginurl,"loginname","password");
-       }catch (Exception e){
+            formAuthInfo = new FormAuthInfo("hongyullj@sina.com", "LLJmxy1214", loginurl, "loginname", "password");
+        } catch (Exception e) {
 
-       }
+        }
 
 
-       List<AuthInfo> authInfos = new ArrayList<>();
+        List<AuthInfo> authInfos = new ArrayList<>();
 
-        if (formAuthInfo!=null) {
+        if (formAuthInfo != null) {
             authInfos.add(formAuthInfo);
             config.setAuthInfos(authInfos);
         }
         return config;
     }
 
-    private CrawlController getController() throws Exception{
+    private CrawlController getController() throws Exception {
         CrawlConfig config = this.getConfig();
         PageFetcher pageFetcher = new PageFetcher(config);
         RobotstxtConfig robotstxtConfig = new RobotstxtConfig();
@@ -81,7 +81,7 @@ public class TestLoginCrawler extends BaseTest {
     private CrawlController.WebCrawlerFactory<CustomCrawlerServices> getFactory() {
 
         AtomicInteger numSeenImages = new AtomicInteger();
-        CrawlController.WebCrawlerFactory<CustomCrawlerServices> factory =  new CrawlController.WebCrawlerFactory(){
+        CrawlController.WebCrawlerFactory<CustomCrawlerServices> factory = new CrawlController.WebCrawlerFactory() {
             @Override
             public WebCrawler newInstance() throws Exception {
                 customCrawlerServices.setNumSeenImages(numSeenImages);
@@ -101,24 +101,24 @@ public class TestLoginCrawler extends BaseTest {
         controller.start(this.getFactory(), numberOfCrawlers);
 
         System.out.println("--------------");
-       //if (controller.isFinished())
-       //    this.customHandleServices.bookHandle();
+        //if (controller.isFinished())
+        //    this.customHandleServices.bookHandle();
         //System.out.println(System.currentTimeMillis() - sTime);
     }
 
 
     @Test
     public void testForeach() {
-       ArrayList<String> ids = new ArrayList<>();
-       ids.add("123");
-       ids.add("456");
-        Map<String,Boolean> result = new HashMap<>();
-       ids.forEach((id)->{
-           result.put(id,true);
-           System.out.println(id);
-       });
+        ArrayList<String> ids = new ArrayList<>();
+        ids.add("123");
+        ids.add("456");
+        Map<String, Boolean> result = new HashMap<>();
+        ids.forEach((id) -> {
+            result.put(id, true);
+            System.out.println(id);
+        });
 
-       System.out.println("-------"+result.size()+"-------");
+        System.out.println("-------" + result.size() + "-------");
 
     }
 

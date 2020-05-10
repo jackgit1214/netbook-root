@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -60,11 +60,11 @@ public class Counters {
         this.counterValues = new HashMap<>();
         this.config = config;
 
-    /*
-     * When crawling is set to be resumable, we have to keep the statistics
-     * in a transactional database to make sure they are not lost if crawler
-     * is crashed or terminated unexpectedly.
-     */
+        /*
+         * When crawling is set to be resumable, we have to keep the statistics
+         * in a transactional database to make sure they are not lost if crawler
+         * is crashed or terminated unexpectedly.
+         */
         if (config.isResumableCrawling()) {
             DatabaseConfig dbConfig = new DatabaseConfig();
             dbConfig.setAllowCreate(true);
@@ -109,7 +109,7 @@ public class Counters {
                 if (statisticsDB != null) {
                     Transaction txn = env.beginTransaction(null, null);
                     statisticsDB.put(txn, new DatabaseEntry(name.getBytes()),
-                                     new DatabaseEntry(Util.long2ByteArray(value)));
+                            new DatabaseEntry(Util.long2ByteArray(value)));
                     txn.commit();
                 }
             } catch (RuntimeException e) {

@@ -26,7 +26,8 @@ public class BookCatalogHandle implements WebPageHandle {
     @Autowired
     private BookCommonService bookCommonServiceImpl;
 
-    private AtomicInteger handleNum = new AtomicInteger();;
+    private AtomicInteger handleNum = new AtomicInteger();
+    ;
     @Autowired
     private NetbookService netBookServiceImpl;
 
@@ -106,7 +107,7 @@ public class BookCatalogHandle implements WebPageHandle {
                 }
                 ins.close();
             }
-           // Object object = urlConn.getContent();
+            // Object object = urlConn.getContent();
 
             return buffer;
         } catch (Exception e) {

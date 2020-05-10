@@ -6,11 +6,11 @@ import javax.swing.text.html.FormSubmitEvent.MethodType;
 
 /**
  * Created by Avi Hayun on 11/25/2014.
- *
+ * <p>
  * BasicAuthInfo contains the authentication information needed for BASIC authentication
  * (extending AuthInfo which
  * has all common auth info in it)
- *
+ * <p>
  * BASIC authentication in PHP:
  * <ul>
  *  <li>http://php.net/manual/en/features.http-auth.php</li>
@@ -26,12 +26,11 @@ public class BasicAuthInfo extends AuthInfo {
      * @param username Username used for Authentication
      * @param password Password used for Authentication
      * @param loginUrl Full Login URL beginning with "http..." till the end of the url
-     *
      * @throws MalformedURLException Make sure your URL is valid
      */
     public BasicAuthInfo(String username, String password, String loginUrl)
-        throws MalformedURLException {
+            throws MalformedURLException {
         super(AuthenticationType.BASIC_AUTHENTICATION, MethodType.GET, loginUrl, username,
-              password);
+                password);
     }
 }

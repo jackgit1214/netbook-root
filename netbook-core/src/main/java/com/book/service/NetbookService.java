@@ -3,6 +3,7 @@ package com.book.service;
 import com.book.model.Netbook;
 import com.book.model.NetbookWithBLOBs;
 import com.framework.mybatis.service.IBusinessService;
+
 import java.util.List;
 
 public interface NetbookService extends IBusinessService<Netbook> {
@@ -12,5 +13,5 @@ public interface NetbookService extends IBusinessService<Netbook> {
 
     int save(Netbook record);
 
-    NetbookWithBLOBs  getNetBookWithBlobById(String netBookId);
+    NetbookWithBLOBs getNetBookWithBlobById(String netBookId);
 }

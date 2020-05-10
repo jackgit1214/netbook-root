@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -57,7 +57,7 @@ public class URLCanonicalizer {
 
         try {
             URL canonicalURL =
-                new URL(UrlResolver.resolveUrl((context == null) ? "" : context, href));
+                    new URL(UrlResolver.resolveUrl((context == null) ? "" : context, href));
 
             String host = canonicalURL.getHost().toLowerCase();
             if (Objects.equals(host, "")) {
@@ -67,14 +67,14 @@ public class URLCanonicalizer {
 
             String path = canonicalURL.getPath();
 
-      /*
-       * Normalize: no empty segments (i.e., "//"), no segments equal to
-       * ".", and no segments equal to ".." that are preceded by a segment
-       * not equal to "..".
-       */
+            /*
+             * Normalize: no empty segments (i.e., "//"), no segments equal to
+             * ".", and no segments equal to ".." that are preceded by a segment
+             * not equal to "..".
+             */
             path = new URI(path.replace("\\", "/")
-                    .replace(String.valueOf((char)12288), "%E3%80%80")
-                    .replace(String.valueOf((char)32), "%20")).normalize().toString();
+                    .replace(String.valueOf((char) 12288), "%E3%80%80")
+                    .replace(String.valueOf((char) 32), "%20")).normalize().toString();
 
             int idx = path.indexOf("//");
             while (idx >= 0) {

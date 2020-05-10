@@ -25,7 +25,7 @@ public class CustomCrawlerServices extends WebCrawler implements CustomCrawler {
     public static List links = new CopyOnWriteArrayList();
     //^((https|http|ftp|rtsp|mms)?://)www.61ww.com/.*/36332/.*
     private String regex = "";
-    private String taskId="";
+    private String taskId = "";
     private String rootUrl;
     private AtomicInteger numSeenImages;
 
@@ -40,8 +40,8 @@ public class CustomCrawlerServices extends WebCrawler implements CustomCrawler {
      * Creates a new crawler instance.
      *
      * @param numSeenImages This is just an example to demonstrate how you can pass objects to crawlers. In this
-     * example, we pass an AtomicInteger to all crawlers and they increment it whenever they see a url which points
-     * to an image.
+     *                      example, we pass an AtomicInteger to all crawlers and they increment it whenever they see a url which points
+     *                      to an image.
      */
     public CustomCrawlerServices(AtomicInteger numSeenImages) {
         this.numSeenImages = numSeenImages;
@@ -59,10 +59,10 @@ public class CustomCrawlerServices extends WebCrawler implements CustomCrawler {
 //            numSeenImages.incrementAndGet();
 //            return false;
 //        }
-        if (JSCSS_EXTENSIONS.matcher(href).matches()){
+        if (JSCSS_EXTENSIONS.matcher(href).matches()) {
             return false;
         }
-        if (href.endsWith(".css")||href.endsWith(".js"))
+        if (href.endsWith(".css") || href.endsWith(".js"))
             return false;
 
         // return true;
@@ -70,7 +70,10 @@ public class CustomCrawlerServices extends WebCrawler implements CustomCrawler {
         Pattern patternRegex = Pattern.compile(regex);
         //System.out.println(href);
         boolean isMatches = patternRegex.matcher(href).matches();
-        if (!href.equals(this.rootUrl) && (regex!="" && !isMatches))
+        //System.out.println(href);
+        if (href.equals(this.rootUrl))
+            return true;
+        if (regex != "" && !isMatches)
             return false;
 
         return true;
@@ -106,7 +109,7 @@ public class CustomCrawlerServices extends WebCrawler implements CustomCrawler {
 
 
     /**
-     *  手动调用停止时执行
+     * 手动调用停止时执行
      */
     @Override
     public void onBeforeExit() {

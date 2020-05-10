@@ -114,10 +114,10 @@ public class Downloader {
     }
 
     public static void main(String[] args) {
-       // Downloader downloader = new Downloader();
+        // Downloader downloader = new Downloader();
         // downloader.processUrl("http://en.wikipedia.org/wiki/Main_Page/");
         // downloader.processUrl("http://www.yahoo.com/");
-       // downloader.processUrl("http://www.sohu.com/");
+        // downloader.processUrl("http://www.sohu.com/");
         System.out.println(10000 * 1024);
     }
 }

@@ -75,15 +75,15 @@ public class CustomHandleServices {
     private CountDownLatch threadCompletedCounter = new CountDownLatch(defaultThreadNum);
 
 
-    private List<Netbook> getAllBooks(){
+    private List<Netbook> getAllBooks() {
         return this.netBookServiceImpl.findAllObjects();
     }
 
-    public void bookHandle(){
+    public void bookHandle() {
         this.bookHandle(this.defaultThreadNum);
     }
 
-    public void bookHandle(int threatNum){
+    public void bookHandle(int threatNum) {
         this.defaultThreadNum = threatNum;
         CrawlConfig config = new CrawlConfig();
         config.setPolitenessDelay(politeness);
@@ -111,7 +111,7 @@ public class CustomHandleServices {
     /**
      * 针对书籍进行处理，处理所有书籍的状态，以及章节数，以及最新章节
      */
-    public void bookHandle(List<Netbook> netbooks){
+    public void bookHandle(List<Netbook> netbooks) {
         ExecutorService executor = Executors.newFixedThreadPool(defaultThreadNum);
         for (int i = 0; i < defaultThreadNum; i++) {
             executor.submit(new Runnable() {
@@ -119,7 +119,7 @@ public class CustomHandleServices {
                     Netbook netbook = getNext(netbooks);
                     while (null != netbook) {
                         try {
-                           processUrl(netbook.getOrigin(),netbook);
+                            processUrl(netbook.getOrigin(), netbook);
                         } catch (Exception e) {
                             logger.error("表更新错误... ", e);
                         }
@@ -137,10 +137,10 @@ public class CustomHandleServices {
     /**
      * 同步处理：获取需要更新的一条微博人物
      */
-    private synchronized Netbook getNext(List<Netbook> netbooks){
-        if(next.intValue()>=netbooks.size()) return null;
+    private synchronized Netbook getNext(List<Netbook> netbooks) {
+        if (next.intValue() >= netbooks.size()) return null;
         next.incrementAndGet();
-        return netbooks.get(next.intValue()-1);
+        return netbooks.get(next.intValue() - 1);
     }
 
 
@@ -185,7 +185,7 @@ public class CustomHandleServices {
         return null;
     }
 
-    private void processUrl(String url,Netbook netbook) {
+    private void processUrl(String url, Netbook netbook) {
         Page page = handleUrl(url);
         if (page != null) {
             ParseData parseData = page.getParseData();
@@ -195,16 +195,16 @@ public class CustomHandleServices {
                     Document doc = Jsoup.parse(htmlParseData.getHtml());
                     String domain = url.split("/")[2];//网站域名
                     Integer bookNo = Integer.parseInt(url.split("/")[4]);//书的ID号
-                    Date updateTime = new  Date();
+                    Date updateTime = new Date();
                     Elements statusEle = doc.select(".introduce>p.bq>span");
                     Elements catalogs = doc.select("div.main>div.ml_content>div.zb>div.ml_list>ul>li");
                     String status = "0";
-                    if (statusEle.size()>0) {
+                    if (statusEle.size() > 0) {
                         String updateTimeS = statusEle.get(0).text(); //最后更新时间,格式：更新：2019-09-25 08:00
                         String zhStatus = statusEle.get(2).text().split("：")[1]; //状态：连载或者状态：完结
                         if ("完结".equals(zhStatus))
-                            status ="1";
-                        SimpleDateFormat sDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                            status = "1";
+                        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                         try {
                             updateTime = sDateFormat.parse(updateTimeS.split("：")[1]);
                         } catch (ParseException e) {
@@ -225,14 +225,14 @@ public class CustomHandleServices {
         }
     }
 
-    private void updateChapter(Netbook netbook){
-        String  netBookId = netbook.getNetBookId();
+    private void updateChapter(Netbook netbook) {
+        String netBookId = netbook.getNetBookId();
 
     }
 
-    private void bulidRelationType(Netbook netbook){
+    private void bulidRelationType(Netbook netbook) {
         String aliasName = netbook.getOriTypeName();
-        if (this.bookTypeServiceImpl.isExist(aliasName)){
+        if (this.bookTypeServiceImpl.isExist(aliasName)) {
             Booktype bookType = this.bookTypeServiceImpl.getBookType(aliasName);
             Booktyperelation booktyperelation = new Booktyperelation();
             booktyperelation.setIdBookType(bookType.getIdBookType());

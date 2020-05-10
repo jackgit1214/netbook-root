@@ -71,7 +71,7 @@ public class TikaHtmlParser implements edu.uci.ics.crawler4j.parser.HtmlParser {
 
             //这里修改下，2020年4月 by lilj，page.getContentCharset 会取不到charset,值为空
             //if (page.getContentCharset() == null) {
-            if (contentCharset ==null)    {
+            if (contentCharset == null) {
                 parsedData.setHtml(new String(page.getContentData()));
             } else {
                 //parsedData.setHtml(new String(page.getContentData(), page.getContentCharset()));

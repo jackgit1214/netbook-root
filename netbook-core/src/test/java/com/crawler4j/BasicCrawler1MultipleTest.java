@@ -10,14 +10,14 @@ import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 
 public class BasicCrawler1MultipleTest {
 
-	@Test
-	public void test() throws Exception {
+    @Test
+    public void test() throws Exception {
 
-		/*
+        /*
          * crawlStorageFolder is a folder where intermediate crawl data is
          * stored.
          */
-        String crawlStorageFolder ="f:/data";
+        String crawlStorageFolder = "f:/data";
 
         CrawlConfig config1 = new CrawlConfig();
         CrawlConfig config2 = new CrawlConfig();
@@ -50,8 +50,8 @@ public class BasicCrawler1MultipleTest {
         CrawlController controller1 = new CrawlController(config1, pageFetcher1, robotstxtServer);
         CrawlController controller2 = new CrawlController(config2, pageFetcher2, robotstxtServer);
 
-        String[] crawler1Domains = new String[] { "http://www.ics.uci.edu/", "http://www.cnn.com/" };
-        String[] crawler2Domains = new String[] { "http://en.wikipedia.org/" };
+        String[] crawler1Domains = new String[]{"http://www.ics.uci.edu/", "http://www.cnn.com/"};
+        String[] crawler2Domains = new String[]{"http://en.wikipedia.org/"};
 
         controller1.setCustomData(crawler1Domains);
         controller2.setCustomData(crawler2Domains);
@@ -77,6 +77,6 @@ public class BasicCrawler1MultipleTest {
 
         controller2.waitUntilFinish();
         System.out.println("Crawler 2 is finished.");
-	}
+    }
 
 }

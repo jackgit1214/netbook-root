@@ -61,7 +61,6 @@ public abstract class BaseTest {
     public void verifyFinalDatabaseState() {
 
 
-
     }
 
     /**

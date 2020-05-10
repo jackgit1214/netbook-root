@@ -19,6 +19,7 @@ public class ChapterServiceImplTest extends BaseTest {
     private com.book.service.impl.ChapterServiceImpl chapterServiceImpl;
     @Autowired
     private BookCommonService bookCommonServiceImpl;
+
     @Test
     public void delete() {
     }
@@ -33,29 +34,29 @@ public class ChapterServiceImplTest extends BaseTest {
         Chapter chapter = new Chapter();
         chapter.setBookId("123");
         chapter.setUpdatetime(new Date());
-        String content="测试中文内容.........";
+        String content = "测试中文内容.........";
 
-            chapter.setContent(content);
+        chapter.setContent(content);
 
         this.chapterServiceImpl.save(chapter);
         List<Chapter> chapters = this.chapterServiceImpl.findAllObjects();
-        Assert.assertEquals(1,chapters.size());
+        Assert.assertEquals(1, chapters.size());
     }
 
     @Test
-    public void findObjects(){
+    public void findObjects() {
 
         List<Chapter> chapters = this.chapterServiceImpl.findAllObjects();
         this.chapterServiceImpl.findObjectById("e7bb8b34db9e40a9923420acd9f24c81");
-        Assert.assertEquals(1,chapters.size());
+        Assert.assertEquals(1, chapters.size());
 
     }
 
     @Test
-    public void findObjectsById(){
+    public void findObjectsById() {
 
         //this.save();
-        Chapter chapter = (Chapter)this.chapterServiceImpl.findObjectById("85b0945c7a754550835bf5c44f6bcc3a");
+        Chapter chapter = (Chapter) this.chapterServiceImpl.findObjectById("85b0945c7a754550835bf5c44f6bcc3a");
 
         String content = chapter.getContent();
         System.out.println(content);
@@ -65,11 +66,11 @@ public class ChapterServiceImplTest extends BaseTest {
 
     @Test
     @Rollback(false)
-    public void testHandleCrawlingContent(){
+    public void testHandleCrawlingContent() {
         this.bookCommonServiceImpl.handleCrawlingContent();
-        Map<String,Integer> result =  this.bookCommonServiceImpl.getHandleResult();
-        result.forEach((type,num)->{
-            System.out.println(type+"----"+num);
+        Map<String, Integer> result = this.bookCommonServiceImpl.getHandleResult();
+        result.forEach((type, num) -> {
+            System.out.println(type + "----" + num);
         });
     }
 }

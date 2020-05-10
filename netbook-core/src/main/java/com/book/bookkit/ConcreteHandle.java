@@ -22,7 +22,7 @@ import java.net.URL;
 import java.util.Date;
 
 @Component
-public class ConcreteHandle implements HandleFactory , ApplicationContextAware {
+public class ConcreteHandle implements HandleFactory, ApplicationContextAware {
 
 
     @Resource
@@ -39,24 +39,24 @@ public class ConcreteHandle implements HandleFactory , ApplicationContextAware {
     @Override
     public <T extends WebPageHandle> T createPageHandle(Class<T> c) {
         WebPageHandle pageHandle = null;
-        try{
-            pageHandle = (WebPageHandle)this.applicationContext.getBean(c);
-        }catch(Exception e){
+        try {
+            pageHandle = (WebPageHandle) this.applicationContext.getBean(c);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return (T)pageHandle;
+        return (T) pageHandle;
 
     }
 
     @Override
     public <T extends BookHandler> T createPageHandle(String beanName) {
         BookHandler pageHandle = null;
-        try{
-            pageHandle = (BookHandler)this.applicationContext.getBean(beanName);
-        }catch(Exception e){
+        try {
+            pageHandle = (BookHandler) this.applicationContext.getBean(beanName);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return (T)pageHandle;
+        return (T) pageHandle;
     }
 
 
@@ -65,7 +65,7 @@ public class ConcreteHandle implements HandleFactory , ApplicationContextAware {
         this.applicationContext = applicationContext;
     }
 
-    public  byte[] getImage(String imgUrl) {
+    public byte[] getImage(String imgUrl) {
         if (imgUrl == null)
             return null;
 
@@ -130,7 +130,7 @@ public class ConcreteHandle implements HandleFactory , ApplicationContextAware {
         netBook.setNetBookId(netBookId);
         netBook.setOrigin(url);
         netBook.setAuthor(author);
-        if (this.netBookServiceImpl.save(netBook)>0)
+        if (this.netBookServiceImpl.save(netBook) > 0)
             return netBook;
         return null;
     }

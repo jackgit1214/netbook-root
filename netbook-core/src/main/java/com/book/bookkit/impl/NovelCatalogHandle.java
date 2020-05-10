@@ -22,13 +22,14 @@ import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
-public class NovelCatalogHandle implements WebPageHandle  {
+public class NovelCatalogHandle implements WebPageHandle {
 
-    private  ServletContext servletContext;
+    private ServletContext servletContext;
 
     @Autowired
     private BookCommonService bookCommonServiceImpl;
-    private AtomicInteger handleNum = new AtomicInteger();;
+    private AtomicInteger handleNum = new AtomicInteger();
+    ;
     @Autowired
     private ChapterService chapterServiceImpl;
 
@@ -40,15 +41,15 @@ public class NovelCatalogHandle implements WebPageHandle  {
 
         String domain = url.split("/")[2];//网站域名
         Integer bookNo = Integer.parseInt(url.split("/")[4]);//书的ID号
-        Date updateTime = new  Date();
+        Date updateTime = new Date();
         String status = "0";
-        if (statusEle.size()>0) {
+        if (statusEle.size() > 0) {
             String updateTimeS = statusEle.get(0).text(); //最后更新时间,格式：更新：2019-09-25 08:00
 
             status = statusEle.get(2).text().split(":")[1]; //状态：连载或者状态：完结
             if ("完结".equals(status))
-                status ="1";
-            SimpleDateFormat sDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                status = "1";
+            SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             try {
                 updateTime = sDateFormat.parse(updateTimeS.split(".")[1]);
             } catch (ParseException e) {
@@ -56,27 +57,27 @@ public class NovelCatalogHandle implements WebPageHandle  {
             }
             //this.bookCommonServiceImpl.updateBookStatus(bookNo,status,catalogs.size());
         }
-        if (catalogs.size()<=0)
+        if (catalogs.size() <= 0)
             return null;
-        ArrayList<String> seeds= new ArrayList<String>();
-        int i=0;
-        for(Element element:catalogs){
+        ArrayList<String> seeds = new ArrayList<String>();
+        int i = 0;
+        for (Element element : catalogs) {
             Element tmpE = element.select("a").first();
             String chapterName = tmpE.text();
             String href = tmpE.attr("href");
             String link = href.split("/")[3];
-            String charpterNo = link.substring(0,link.indexOf("."));
+            String charpterNo = link.substring(0, link.indexOf("."));
             Chapter chapter = new Chapter();
             chapter.setChapterName(chapterName);
             chapter.setChapterOrder(i);
             chapter.setChapterIdNo(Integer.parseInt(charpterNo));
             chapter.setUpdatetime(updateTime);
-            chapter.setChapterAddress(domain+href);
+            chapter.setChapterAddress(domain + href);
             chapter.setOriBookId(bookNo);//
             //this.bookCommonServiceImpl.addChapter(chapter);
             this.chapterServiceImpl.save(chapter);
             handleNum.incrementAndGet();
-            seeds.add("http://"+domain+href);
+            seeds.add("http://" + domain + href);
             i++;
         }
         return seeds;

@@ -26,7 +26,7 @@ public class MyCrawlerServicesTest extends BaseTest {
     @Autowired
     private CustomHandleServices customHandleServices;
 
-   private CrawlConfig getConfig(){
+    private CrawlConfig getConfig() {
         CrawlConfig config = new CrawlConfig();
 
         config.setCrawlStorageFolder("/tmp/crawler4j/");
@@ -45,7 +45,7 @@ public class MyCrawlerServicesTest extends BaseTest {
         return config;
     }
 
-    private CrawlController getController() throws Exception{
+    private CrawlController getController() throws Exception {
         CrawlConfig config = this.getConfig();
         PageFetcher pageFetcher = new PageFetcher(config);
         RobotstxtConfig robotstxtConfig = new RobotstxtConfig();
@@ -58,7 +58,7 @@ public class MyCrawlerServicesTest extends BaseTest {
     private CrawlController.WebCrawlerFactory<CustomCrawlerServices> getFactory() {
 
         AtomicInteger numSeenImages = new AtomicInteger();
-        CrawlController.WebCrawlerFactory<CustomCrawlerServices> factory =  new CrawlController.WebCrawlerFactory(){
+        CrawlController.WebCrawlerFactory<CustomCrawlerServices> factory = new CrawlController.WebCrawlerFactory() {
             @Override
             public WebCrawler newInstance() throws Exception {
                 customCrawlerServices.setNumSeenImages(numSeenImages);
@@ -77,8 +77,8 @@ public class MyCrawlerServicesTest extends BaseTest {
         controller.addSeed("http://www.61ww.com/30/30592/9941056.html");
         controller.start(this.getFactory(), numberOfCrawlers);
 
-       //if (controller.isFinished())
-       //    this.customHandleServices.bookHandle();
+        //if (controller.isFinished())
+        //    this.customHandleServices.bookHandle();
         //System.out.println(System.currentTimeMillis() - sTime);
     }
 
@@ -90,22 +90,22 @@ public class MyCrawlerServicesTest extends BaseTest {
 
         controller.addSeed("http://rsj.beijing.gov.cn/integralpublic/settlePerson/tablePage");
         controller.start(this.getFactory(), numberOfCrawlers);
-        Thread th=Thread.currentThread();
-        System.out.println("-----"+(System.currentTimeMillis() - start)+"-----Thread:"+th.getId()+"----"+th.getName());
+        Thread th = Thread.currentThread();
+        System.out.println("-----" + (System.currentTimeMillis() - start) + "-----Thread:" + th.getId() + "----" + th.getName());
     }
 
 
     @Test
-    public void testBookUpdate(){
+    public void testBookUpdate() {
         this.customHandleServices.bookHandle();
     }
 
     @Test
-    public void testIsCrawler(){
+    public void testIsCrawler() {
         boolean test = this.bookCommonServiceImpl.isCrawlerRecord("http://www.61ww.com/dushi/1.html");
-        Assert.assertEquals(true,test);
+        Assert.assertEquals(true, test);
 
         boolean test1 = this.bookCommonServiceImpl.isCrawlerRecord("http://www.61ww.com/dushi/2.html");
-        Assert.assertEquals(false,test1);
+        Assert.assertEquals(false, test1);
     }
 }

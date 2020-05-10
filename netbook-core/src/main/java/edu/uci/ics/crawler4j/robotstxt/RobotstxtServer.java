@@ -4,9 +4,9 @@
  * copyright ownership. The ASF licenses this file to You under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance with the License. You may obtain a
  * copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -107,7 +107,7 @@ public class RobotstxtServer {
         WebURL robotsTxtUrl = new WebURL();
         String host = getHost(url);
         String port = ((url.getPort() == url.getDefaultPort()) || (url.getPort() == -1)) ? "" :
-                      (":" + url.getPort());
+                (":" + url.getPort());
         String proto = url.getProtocol();
         robotsTxtUrl.setURL(proto + "://" + host + port + "/robots.txt");
         HostDirectives directives = null;
@@ -118,12 +118,12 @@ public class RobotstxtServer {
                 int status = fetchResult.getStatusCode();
                 // Follow redirects up to 3 levels
                 if ((status == HttpStatus.SC_MULTIPLE_CHOICES ||
-                     status == HttpStatus.SC_MOVED_PERMANENTLY ||
-                     status == HttpStatus.SC_MOVED_TEMPORARILY ||
-                     status == HttpStatus.SC_SEE_OTHER ||
-                     status == HttpStatus.SC_TEMPORARY_REDIRECT || status == 308) &&
-                    // SC_PERMANENT_REDIRECT RFC7538
-                    fetchResult.getMovedToUrl() != null) {
+                        status == HttpStatus.SC_MOVED_PERMANENTLY ||
+                        status == HttpStatus.SC_MOVED_TEMPORARILY ||
+                        status == HttpStatus.SC_SEE_OTHER ||
+                        status == HttpStatus.SC_TEMPORARY_REDIRECT || status == 308) &&
+                        // SC_PERMANENT_REDIRECT RFC7538
+                        fetchResult.getMovedToUrl() != null) {
                     robotsTxtUrl.setURL(fetchResult.getMovedToUrl());
                     fetchResult.discardContentIfNotConsumed();
                 } else {
@@ -146,28 +146,28 @@ public class RobotstxtServer {
                     }
                     directives = RobotstxtParser.parse(content, config);
                 } else if (page.getContentType()
-                               .contains(
-                                   "html")) { // TODO This one should be upgraded to remove all
+                        .contains(
+                                "html")) { // TODO This one should be upgraded to remove all
                     // html tags
                     String content = new String(page.getContentData());
                     directives = RobotstxtParser.parse(content, config);
                 } else {
                     logger.warn(
-                        "Can't read this robots.txt: {}  as it is not written in plain text, " +
-                        "contentType: {}", robotsTxtUrl.getURL(), page.getContentType());
+                            "Can't read this robots.txt: {}  as it is not written in plain text, " +
+                                    "contentType: {}", robotsTxtUrl.getURL(), page.getContentType());
                 }
             } else {
                 logger.debug("Can't read this robots.txt: {}  as it's status code is {}",
-                             robotsTxtUrl.getURL(), fetchResult.getStatusCode());
+                        robotsTxtUrl.getURL(), fetchResult.getStatusCode());
             }
         } catch (SocketException | UnknownHostException | SocketTimeoutException |
-            NoHttpResponseException se) {
+                NoHttpResponseException se) {
             // No logging here, as it just means that robots.txt doesn't exist on this server
             // which is perfectly ok
             logger.trace("robots.txt probably does not exist.", se);
         } catch (PageBiggerThanMaxSizeException pbtms) {
             logger.error("Error occurred while fetching (robots) url: {}, {}",
-                         robotsTxtUrl.getURL(), pbtms.getMessage());
+                    robotsTxtUrl.getURL(), pbtms.getMessage());
         } catch (IOException e) {
             logger.error("Error occurred while fetching (robots) url: " + robotsTxtUrl.getURL(), e);
         } catch (InterruptedException | RuntimeException e) {

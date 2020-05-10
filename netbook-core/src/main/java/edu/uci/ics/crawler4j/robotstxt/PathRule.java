@@ -15,10 +15,10 @@ public class PathRule {
      * Match a pattern defined in a robots.txt file to a path
      * Following the pattern definition as stated on:
      * https://support.google.com/webmasters/answer/6062596?hl=en&ref_topic=6061961
-     *
+     * <p>
      * This page defines the following items:
-     *    * matches any sequence of characters, including /
-     *    $ matches the end of the line
+     * * matches any sequence of characters, including /
+     * $ matches the end of the line
      *
      * @param pattern The pattern to convert
      * @return The compiled regexp pattern created from the robots.txt pattern
@@ -66,7 +66,7 @@ public class PathRule {
                 }
             } else if (ch == '$' && pos == pattern.length() - 1) {
                 // A $ at the end of the pattern indicates that the path should end here in order
-              // to match
+                // to match
                 // This explicitly disallows prefix matching
                 if (quoteBuf.length() > 0) {
                     // The quoted character buffer is not empty, so add them before adding
@@ -101,7 +101,7 @@ public class PathRule {
      * Check if the specified path matches a robots.txt pattern
      *
      * @param pattern The pattern to match
-     * @param path The path to match with the pattern
+     * @param path    The path to match with the pattern
      * @return True when the pattern matches, false if it does not
      */
     public static boolean matchesRobotsPattern(String pattern, String path) {
@@ -111,7 +111,7 @@ public class PathRule {
     /**
      * Create a new path rule, based on the specified pattern
      *
-     * @param type Either HostDirectives.ALLOWS or HostDirectives.DISALLOWS
+     * @param type    Either HostDirectives.ALLOWS or HostDirectives.DISALLOWS
      * @param pattern The pattern for this rule
      */
     public PathRule(int type, String pattern) {

@@ -1,6 +1,6 @@
 package com.book.bookkit;
 
-public interface HandleFactory{
+public interface HandleFactory {
 
     <T extends WebPageHandle> T createPageHandle(Class<T> c);
 

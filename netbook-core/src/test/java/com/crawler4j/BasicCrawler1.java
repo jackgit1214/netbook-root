@@ -20,8 +20,8 @@ public class BasicCrawler1 extends WebCrawler {
      * Creates a new crawler instance.
      *
      * @param numSeenImages This is just an example to demonstrate how you can pass objects to crawlers. In this
-     * example, we pass an AtomicInteger to all crawlers and they increment it whenever they see a url which points
-     * to an image.
+     *                      example, we pass an AtomicInteger to all crawlers and they increment it whenever they see a url which points
+     *                      to an image.
      */
     public BasicCrawler1(AtomicInteger numSeenImages) {
         this.numSeenImages = numSeenImages;

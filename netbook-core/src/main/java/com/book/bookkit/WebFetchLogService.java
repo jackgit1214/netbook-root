@@ -37,21 +37,24 @@ public class WebFetchLogService implements ApplicationContextAware {
     @Resource
     private BookCommonService bookCommonServiceImpl;
 
-    @Pointcut("execution(* com.book.bookkit.crawler.Custom*.visit(..)) && args(page)" )
-    private void pageHandle(Page page) {}
+    @Pointcut(value = "execution(* com.book.bookkit.crawler.Custom*.visit(..)) && args(page)")
+    private void pageHandle(Page page) {
+    }
 
 
-    @Pointcut("execution(* com.book.bookkit.crawler.Custom*.ParseException(..))||execution(* com.book.bookkit.crawler.Custom*.onContentFetchError(..))||execution(* com.book.bookkit.crawler.Custom*.onUnhandledException(..))||execution(* com.book.bookkit.crawler.Custom*.onUnexpectedStatusCode(..))")
-    private void pageHandleError(){}
+    @Pointcut(value = "execution(* com.book.bookkit.crawler.Custom*.ParseException(..))||execution(* com.book.bookkit.crawler.Custom*.onContentFetchError(..))||execution(* com.book.bookkit.crawler.Custom*.onUnhandledException(..))||execution(* com.book.bookkit.crawler.Custom*.onUnexpectedStatusCode(..))")
+    private void pageHandleError() {
+    }
 
-    @Pointcut("execution(* com.book.bookkit.crawler.Custom*.test*(..))" )
-    private void testHandle() {}
+    @Pointcut(value = "execution(* com.book.bookkit.crawler.Custom*.test*(..))")
+    private void testHandle() {
+    }
 
     private Date sDate;
     private int statusCode;
 
-    @Before(value="pageHandle(page)")
-    public void setTime(JoinPoint point,Page page){
+    @Before(value = "pageHandle(page)")
+    public void setTime(JoinPoint point, Page page) {
         sDate = new Date();
 
     }
@@ -71,61 +74,61 @@ public class WebFetchLogService implements ApplicationContextAware {
 //        return false;
 //    }
 
-    @After(value="pageHandle(page)")
-    public void handleLogInfo(JoinPoint point,Page page){
+    @After(value = "pageHandle(page)")
+    public void handleLogInfo(JoinPoint point, Page page) {
         getServices();
         String methodName = point.getSignature().getName();
         Object target = point.getTarget();
         String taskId = "";
-        if (target instanceof CustomCrawler){
-            CustomCrawler tmpCrawler = (CustomCrawler)target;
+        if (target instanceof CustomCrawler) {
+            CustomCrawler tmpCrawler = (CustomCrawler) target;
 
             taskId = tmpCrawler.getCrawlerTask();
         }
 
-        this.logger.debug(methodName+"..."+page.getWebURL().getURL());
+        this.logger.debug(methodName + "..." + page.getWebURL().getURL());
         String url = page.getWebURL().getURL();
         String html = null;
         if (page.getParseData() instanceof HtmlParseData) {
             HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
             html = htmlParseData.getHtml();
         }
-        this.bookCommonServiceImpl.saveCrawlerLog(url,html,sDate,new Date(),"1",taskId);
+        this.bookCommonServiceImpl.saveCrawlerLog(url, html, sDate, new Date(), "1", taskId);
 
 
     }
 
     private void getServices() {
-        if (this.bookCommonServiceImpl ==null) //为空时，手动注入对象
-            this.bookCommonServiceImpl = (BookCommonService)this.applicationContext.getBean("bookCommonServiceImpl");
+        if (this.bookCommonServiceImpl == null) //为空时，手动注入对象
+            this.bookCommonServiceImpl = (BookCommonService) this.applicationContext.getBean("bookCommonServiceImpl");
     }
 
-    @After(value="pageHandleError()")
-    public void handleErrorInfo(JoinPoint point){
+    @After(value = "pageHandleError()")
+    public void handleErrorInfo(JoinPoint point) {
         String methodName = point.getSignature().getName();
         String url = "";
         getServices();
-        if (methodName.equals("onParseError")||methodName.equals("onUnhandledException")){
-            WebURL curUrl = (WebURL)point.getArgs()[0];
+        if (methodName.equals("onParseError") || methodName.equals("onUnhandledException")) {
+            WebURL curUrl = (WebURL) point.getArgs()[0];
             url = curUrl.getURL();
-        }else if ("onUnexpectedStatusCode".equals(methodName)) {
-            url = (String)point.getArgs()[0];
-            this.statusCode = (Integer)point.getArgs()[1];
-        }else {
-            Page page = (Page)point.getArgs()[0];
+        } else if ("onUnexpectedStatusCode".equals(methodName)) {
+            url = (String) point.getArgs()[0];
+            this.statusCode = (Integer) point.getArgs()[1];
+        } else {
+            Page page = (Page) point.getArgs()[0];
             url = page.getWebURL().getURL();
         }
         String taskId = "";
         Object target = point.getTarget();
-        if (target instanceof CustomCrawler){
-            CustomCrawler tmpCrawler = (CustomCrawler)target;
+        if (target instanceof CustomCrawler) {
+            CustomCrawler tmpCrawler = (CustomCrawler) target;
             taskId = tmpCrawler.getCrawlerTask();
         }
-        this.bookCommonServiceImpl.saveCrawlerLog(url,"数据处理异常:"+String.valueOf(this.statusCode),new Date(),new Date(),"0",taskId);
+        this.bookCommonServiceImpl.saveCrawlerLog(url, "数据处理异常:" + String.valueOf(this.statusCode), new Date(), new Date(), "0", taskId);
     }
 
-    @After(value="testHandle()")
-    public void handTest(JoinPoint point){
+    @After(value = "testHandle()")
+    public void handTest(JoinPoint point) {
         System.out.println(point.getSignature().getName());
 //        this.bookCommonServiceImpl = (BookCommonService)this.applicationContext.getBean("bookCommonServiceImpl");
 //        System.out.println(this.bookCommonServiceImpl);

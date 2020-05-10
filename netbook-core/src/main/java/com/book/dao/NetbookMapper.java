@@ -12,5 +12,4 @@ import java.util.List;
 public interface NetbookMapper extends IDataMapperByPage<Netbook>, IDataMapperCRUD<Netbook>, IDataMapperWithBlob<NetbookWithBLOBs> {
 
 
-
 }

@@ -26,7 +26,8 @@ public class NovelContentHandle implements WebPageHandle {
 
     @Autowired
     private BookCommonService bookCommonServiceImpl;
-    private AtomicInteger handleNum = new AtomicInteger();;
+    private AtomicInteger handleNum = new AtomicInteger();
+    ;
     @Autowired
     private ChaptercontentService chaptercontentService;
 
@@ -34,12 +35,12 @@ public class NovelContentHandle implements WebPageHandle {
     public ArrayList<String> handelPage(String html, String url) {
         Document doc = Jsoup.parse(html);
         Elements articleElement = doc.select("#articlecontent");
-        if (articleElement.size()<=0)
+        if (articleElement.size() <= 0)
             return null;
         Chaptercontent chaptercontent = new Chaptercontent();
         String[] temp = url.split("/");
         String link = temp[5];
-        String charpterNo = link.substring(0,link.indexOf("."));
+        String charpterNo = link.substring(0, link.indexOf("."));
         String content = articleElement.first().text();
         chaptercontent.setBookContent(content);
         chaptercontent.setOriBookId(Integer.parseInt(temp[4]));

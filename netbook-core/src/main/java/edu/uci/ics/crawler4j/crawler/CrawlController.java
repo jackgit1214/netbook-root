@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -92,7 +92,7 @@ public class CrawlController {
     }
 
     public CrawlController(CrawlConfig config, PageFetcher pageFetcher,
-            RobotstxtServer robotstxtServer, TLDList tldList) throws Exception {
+                           RobotstxtServer robotstxtServer, TLDList tldList) throws Exception {
         this(config, pageFetcher, null, robotstxtServer, tldList);
     }
 
@@ -107,8 +107,8 @@ public class CrawlController {
                 logger.debug("Created folder: " + folder.getAbsolutePath());
             } else {
                 throw new Exception(
-                    "couldn't create the storage folder: " + folder.getAbsolutePath() +
-                    " does it already exist ?");
+                        "couldn't create the storage folder: " + folder.getAbsolutePath() +
+                                " does it already exist ?");
             }
         }
 
@@ -129,14 +129,14 @@ public class CrawlController {
                 logger.debug("Created folder: " + envHome.getAbsolutePath());
             } else {
                 throw new Exception(
-                    "Failed creating the frontier folder: " + envHome.getAbsolutePath());
+                        "Failed creating the frontier folder: " + envHome.getAbsolutePath());
             }
         }
 
         if (!resumable) {
             IO.deleteFolderContents(envHome);
             logger.info("Deleted contents of: " + envHome +
-                        " ( as you have configured resumable crawling to false )");
+                    " ( as you have configured resumable crawling to false )");
         }
 
         env = new Environment(envHome, envConfig);
@@ -162,7 +162,7 @@ public class CrawlController {
     }
 
     private static class SingleInstanceFactory<T extends WebCrawler>
-        implements WebCrawlerFactory<T> {
+            implements WebCrawlerFactory<T> {
 
         final T instance;
 
@@ -177,7 +177,7 @@ public class CrawlController {
     }
 
     private static class DefaultWebCrawlerFactory<T extends WebCrawler>
-        implements WebCrawlerFactory<T> {
+            implements WebCrawlerFactory<T> {
         final Class<T> clazz;
 
         DefaultWebCrawlerFactory(Class<T> clazz) {
@@ -327,16 +327,16 @@ public class CrawlController {
                                     // are
                                     // alive.
                                     logger.info(
-                                        "It looks like no thread is working, waiting for " +
-                                         config.getThreadShutdownDelaySeconds() +
-                                         " seconds to make sure...");
+                                            "It looks like no thread is working, waiting for " +
+                                                    config.getThreadShutdownDelaySeconds() +
+                                                    " seconds to make sure...");
                                     sleep(config.getThreadShutdownDelaySeconds());
 
                                     someoneIsWorking = false;
                                     for (int i = 0; i < threads.size(); i++) {
                                         Thread thread = threads.get(i);
                                         if (thread.isAlive() &&
-                                            crawlers.get(i).isNotWaitingForNewURLs()) {
+                                                crawlers.get(i).isNotWaitingForNewURLs()) {
                                             someoneIsWorking = true;
                                         }
                                     }
@@ -347,10 +347,10 @@ public class CrawlController {
                                                 continue;
                                             }
                                             logger.info(
-                                                "No thread is working and no more URLs are in " +
-                                                "queue waiting for another " +
-                                                config.getThreadShutdownDelaySeconds() +
-                                                " seconds to make sure...");
+                                                    "No thread is working and no more URLs are in " +
+                                                            "queue waiting for another " +
+                                                            config.getThreadShutdownDelaySeconds() +
+                                                            " seconds to make sure...");
                                             sleep(config.getThreadShutdownDelaySeconds());
                                             queueLength = frontier.getQueueLength();
                                             if (queueLength > 0) {
@@ -359,8 +359,8 @@ public class CrawlController {
                                         }
 
                                         logger.info(
-                                            "All of the crawlers are stopped. Finishing the " +
-                                            "process...");
+                                                "All of the crawlers are stopped. Finishing the " +
+                                                        "process...");
                                         // At this step, frontier notifies the threads that were
                                         // waiting for new URLs and they should stop
                                         frontier.finish();
@@ -370,8 +370,8 @@ public class CrawlController {
                                         }
 
                                         logger.info(
-                                            "Waiting for " + config.getCleanupDelaySeconds() +
-                                            " seconds before final clean up...");
+                                                "Waiting for " + config.getCleanupDelaySeconds() +
+                                                        " seconds before final clean up...");
                                         sleep(config.getCleanupDelaySeconds());
 
                                         frontier.close();
@@ -415,7 +415,7 @@ public class CrawlController {
         } catch (Exception e) {
             if (config.isHaltOnError()) {
                 if (e instanceof RuntimeException) {
-                    throw (RuntimeException)e;
+                    throw (RuntimeException) e;
                 } else {
                     throw new RuntimeException("error running the monitor thread", e);
                 }
@@ -435,9 +435,9 @@ public class CrawlController {
                     Throwable t = getError();
                     if (t != null && config.isHaltOnError()) {
                         if (t instanceof RuntimeException) {
-                            throw (RuntimeException)t;
+                            throw (RuntimeException) t;
                         } else if (t instanceof Error) {
-                            throw (Error)t;
+                            throw (Error) t;
                         } else {
                             throw new RuntimeException("error on monitor thread", t);
                         }
