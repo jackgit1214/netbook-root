@@ -48,7 +48,7 @@ public abstract class AbstractCrawlerServiceImpl implements CrawlerService {
     @Value("#{configProperties['threadNumber']}")
     protected int threadNum;
 
-    protected CrawlConfig getDefaultConfig(){
+    protected CrawlConfig getDefaultConfig() {
 
         CrawlConfig config = new CrawlConfig();
         config.setCrawlStorageFolder("/tmp/crawler4j/");
@@ -68,7 +68,7 @@ public abstract class AbstractCrawlerServiceImpl implements CrawlerService {
         return config;
     }
 
-    protected CrawlController getController(CrawlConfig config) throws Exception{
+    protected CrawlController getController(CrawlConfig config) throws Exception {
 
         PageFetcher pageFetcher = new PageFetcher(config);
         RobotstxtConfig robotstxtConfig = new RobotstxtConfig();
@@ -77,18 +77,18 @@ public abstract class AbstractCrawlerServiceImpl implements CrawlerService {
         return controller;
     }
 
-    protected CrawlController getController() throws Exception{
+    protected CrawlController getController() throws Exception {
         return this.getController(this.getDefaultConfig());
     }
 
     protected CrawlController.WebCrawlerFactory<CustomCrawlerServices> getFactory(String regex) {
-       return this.getFactory(regex,null);
+        return this.getFactory(regex, null);
     }
 
-    protected CrawlController.WebCrawlerFactory<CustomCrawlerServices> getFactory(String regex,String taskId) {
+    protected CrawlController.WebCrawlerFactory<CustomCrawlerServices> getFactory(String regex, String taskId) {
 
         AtomicInteger numSeenImages = new AtomicInteger();
-        CrawlController.WebCrawlerFactory<CustomCrawlerServices> factory =  new CrawlController.WebCrawlerFactory(){
+        CrawlController.WebCrawlerFactory<CustomCrawlerServices> factory = new CrawlController.WebCrawlerFactory() {
             @Override
             public WebCrawler newInstance() throws Exception {
                 customCrawlerServices.setRegex(regex);

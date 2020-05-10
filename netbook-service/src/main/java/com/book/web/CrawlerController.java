@@ -37,26 +37,28 @@ public class CrawlerController extends BaseController {
 
     /**
      * 取得抓取历史记录，并显示记录页面
+     *
      * @return
      */
     @RequestMapping("/record")
-    public ModelAndView getCrawlerRecord(){
+    public ModelAndView getCrawlerRecord() {
         ModelAndView mav = new ModelAndView();
         return mav;
     }
 
     /**
-     *  处理指定任务的错误记录
+     * 处理指定任务的错误记录
+     *
      * @param params 记录ID
      * @return
      */
     @CrossOrigin(origins = "*")
-    @RequestMapping(value="/errorHandle",method = RequestMethod.POST,consumes = "application/json")
+    @RequestMapping(value = "/errorHandle", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
-    public ResponseResult errorHandle(@RequestBody AcceptParams params){
+    public ResponseResult errorHandle(@RequestBody AcceptParams params) {
 
         ResponseResult rr = new ResponseResult();
-        String taskId = (String)params.getOtherParams().get("taskId");
+        String taskId = (String) params.getOtherParams().get("taskId");
         try {
             int rtnCode = this.crawlerServiceImpl.handleErrorTaskRecord(taskId);
             CrawlerTask crawlerTask = this.crawlerTaskServiceImpl.findObjectById(taskId);
@@ -75,21 +77,22 @@ public class CrawlerController extends BaseController {
 
     /**
      * 开始抓取信息，抓取信息的启动
+     *
      * @param params 记录ID
      * @return
      */
     @CrossOrigin(origins = "*")
-    @RequestMapping(value="/startTask",method = RequestMethod.POST,consumes = "application/json")
+    @RequestMapping(value = "/startTask", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
-    public ResponseResult startCrawlTask(@RequestBody AcceptParams params){
+    public ResponseResult startCrawlTask(@RequestBody AcceptParams params) {
 
         ResponseResult rr = new ResponseResult();
-        String taskId = (String)params.getOtherParams().get("taskId");
+        String taskId = (String) params.getOtherParams().get("taskId");
         CrawlerTask crawlerTask = new CrawlerTask();//不起作用
         try {
-            int rtnCode = this.crawlerServiceImpl.startCrawlerTask(taskId,crawlerTask);
+            int rtnCode = this.crawlerServiceImpl.startCrawlerTask(taskId, crawlerTask);
             rr.setCode(String.valueOf(rtnCode));
-            if (crawlerTask==null){
+            if (crawlerTask == null) {
                 rr.setMessage("任务启动失败，没找到此任务！");
                 return rr;
             }
@@ -107,21 +110,22 @@ public class CrawlerController extends BaseController {
 
     /**
      * 开始抓取信息，抓取信息的启动
+     *
      * @param params 记录ID
      * @return
      */
     @CrossOrigin(origins = "*")
-    @RequestMapping(value="/stopTask",method = RequestMethod.POST,consumes = "application/json")
+    @RequestMapping(value = "/stopTask", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
-    public ResponseResult stopCrawlTask(@RequestBody AcceptParams params){
+    public ResponseResult stopCrawlTask(@RequestBody AcceptParams params) {
         ResponseResult rr = new ResponseResult();
-        String taskId = (String)params.getOtherParams().get("taskId");
+        String taskId = (String) params.getOtherParams().get("taskId");
 
         CrawlerTask crawlerTask = new CrawlerTask();//不起作用
         try {
-            int rtnCode = this.crawlerServiceImpl.stopCrawlerTask(taskId,crawlerTask);
+            int rtnCode = this.crawlerServiceImpl.stopCrawlerTask(taskId, crawlerTask);
             rr.setCode(String.valueOf(rtnCode));
-            if (rtnCode==-1){
+            if (rtnCode == -1) {
                 rr.setMessage("任务停止失败，没找到此任务！");
                 return rr;
             }
@@ -141,22 +145,23 @@ public class CrawlerController extends BaseController {
 
     /**
      * 开始抓取信息，抓取信息的启动
+     *
      * @param params 记录ID
      * @return
      */
     @CrossOrigin(origins = "*")
-    @RequestMapping(value="/getTaskState",method = RequestMethod.POST,consumes = "application/json")
+    @RequestMapping(value = "/getTaskState", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
-    public ResponseResult getTaskState(@RequestBody AcceptParams params){
-        ResponseResult rr = new ResponseResult("0","",null);
-        String taskId = (String)params.getOtherParams().get("taskId");
+    public ResponseResult getTaskState(@RequestBody AcceptParams params) {
+        ResponseResult rr = new ResponseResult("0", "", null);
+        String taskId = (String) params.getOtherParams().get("taskId");
         boolean isFinish = false;
         try {
             isFinish = this.crawlerServiceImpl.isHasTask(taskId);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (!isFinish ){ //已经完成
+        if (!isFinish) { //已经完成
             CrawlerTask crawlerTask = this.crawlerTaskServiceImpl.findObjectById(taskId);
             rr.setResultData(crawlerTask);
             rr.setCode("99");
@@ -169,25 +174,26 @@ public class CrawlerController extends BaseController {
 
     /**
      * 开始抓取信息，抓取信息的启动
+     *
      * @param params 记录ID
      * @return
      */
     @CrossOrigin(origins = "*")
-    @RequestMapping(value="/deleteTask",method = RequestMethod.POST,consumes = "application/json")
+    @RequestMapping(value = "/deleteTask", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
-    public ResponseResult deleteCrawlTask(@RequestBody AcceptParams params){
-        ResponseResult rr = new ResponseResult("0","",null);
-        String taskId = (String)params.getOtherParams().get("taskId");
+    public ResponseResult deleteCrawlTask(@RequestBody AcceptParams params) {
+        ResponseResult rr = new ResponseResult("0", "", null);
+        String taskId = (String) params.getOtherParams().get("taskId");
         int num = this.crawlerTaskServiceImpl.delete(taskId);
 
         rr.setCode(String.valueOf(num));
-        if (num >0 ){
+        if (num > 0) {
             CrawlerTask crawlerTask = new CrawlerTask();
             crawlerTask.setTaskId(taskId);
             rr.setMessage("任务删除成功！");
             rr.setResultData(crawlerTask);
             rr.setOperatorType("D");
-        }else{
+        } else {
             rr.setMessage("任务删除失败！");
         }
         return rr;
@@ -195,39 +201,40 @@ public class CrawlerController extends BaseController {
 
     /**
      * 对抓取不成功的网页，进行全新抓取，即只抓取单个页面
+     *
      * @param params 记录ID,
      * @return
      */
     @CrossOrigin(origins = "*")
     @ResponseBody
-    @RequestMapping(value="/restartUrl",method = RequestMethod.POST,consumes = "application/json")
-    public ResponseResult restartCrawlerUrl(@RequestBody AcceptParams params){
+    @RequestMapping(value = "/restartUrl", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseResult restartCrawlerUrl(@RequestBody AcceptParams params) {
         ResponseResult rr = new ResponseResult();
 
-        boolean isFinished=false;
+        boolean isFinished = false;
         try {
             isFinished = this.crawlerServiceImpl.crawlerSingleUrl(params.getOtherParams().get("url").toString());
-            rr.setCode(isFinished?"1":"0");
+            rr.setCode(isFinished ? "1" : "0");
             rr.setMessage("重新抓取成功，如果页面没自动刷新请手动刷新页面！");
         } catch (Exception e) {
             rr.setMessage("抓取失败，请查看错误信息！");
             rr.setCode("0");
-            rr.setErrorInfo(e.getMessage()+isFinished);
+            rr.setErrorInfo(e.getMessage() + isFinished);
             e.printStackTrace();
         }
-        rr.setResultData("craw_"+params.getOtherParams().get("id"));
+        rr.setResultData("craw_" + params.getOtherParams().get("id"));
         return rr;
     }
 
     @CrossOrigin(origins = "*")
     @ResponseBody
-    @RequestMapping(value="/getTaskRecord",method = RequestMethod.POST,consumes = "application/json")
-    public ResponseResult getTaskRecord(@RequestBody AcceptParams queryParams){
+    @RequestMapping(value = "/getTaskRecord", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseResult getTaskRecord(@RequestBody AcceptParams queryParams) {
         ResponseResult dataResult = new ResponseResult();
-        PageResult<CrawlerTask> crawlerTasks = (PageResult<CrawlerTask>)queryParams.getPageInfo();
+        PageResult<CrawlerTask> crawlerTasks = (PageResult<CrawlerTask>) queryParams.getPageInfo();
         QueryModel queryModel = queryParams.paramsToQueryModel();
         try {
-            this.crawlerTaskServiceImpl.findObjectsByPage(queryModel,crawlerTasks);
+            this.crawlerTaskServiceImpl.findObjectsByPage(queryModel, crawlerTasks);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -240,13 +247,14 @@ public class CrawlerController extends BaseController {
 
     /**
      * 添加抓取记录，并确定是否启动抓取
+     *
      * @param params ,任务参数，包含任务是否直接启动
      * @return
      */
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @RequestMapping(value="/addCrawlerTask",method = RequestMethod.POST)
-    public ResponseResult addCrawlerRecord(@RequestBody AcceptParams<CrawlerTask> params){
+    @RequestMapping(value = "/addCrawlerTask", method = RequestMethod.POST)
+    public ResponseResult addCrawlerRecord(@RequestBody AcceptParams<CrawlerTask> params) {
         ResponseResult rr = new ResponseResult();
         CrawlerTask crawlerTask = params.getCustomModel();
         int code = this.crawlerTaskServiceImpl.save(crawlerTask);
@@ -255,9 +263,9 @@ public class CrawlerController extends BaseController {
         rr.setOperatorType("U");
 
         //创建成功，检查是否自动启动
-        if (code>0){
+        if (code > 0) {
             rr.setMessage("数据保存成功！");
-            if ("1".equals(crawlerTask.getTaskState())){ //
+            if ("1".equals(crawlerTask.getTaskState())) { //
                 try {
                     this.crawlerServiceImpl.crawlerBookUrl(crawlerTask);
                     rr.setCode(String.valueOf(code));
@@ -268,7 +276,7 @@ public class CrawlerController extends BaseController {
                     rr.setErrorInfo(e.getMessage());
                 }
             }
-        }else {
+        } else {
             rr.setCode(String.valueOf(code));
             rr.setMessage("数据保存失败！");
         }
@@ -279,15 +287,16 @@ public class CrawlerController extends BaseController {
     /**
      * 根据任务分析抓取记录
      * 并形成书籍等章节等表数据
+     *
      * @param params
      * @return
      */
     @CrossOrigin(origins = "*")
     @ResponseBody
-    @RequestMapping(value="/analysisTask",method = RequestMethod.POST)
-    public ResponseResult startAnalysisTask(@RequestBody AcceptParams params){
+    @RequestMapping(value = "/analysisTask", method = RequestMethod.POST)
+    public ResponseResult startAnalysisTask(@RequestBody AcceptParams params) {
         ResponseResult rr = new ResponseResult();
-        String taskId = (String)params.getOtherParams().get("taskId");
+        String taskId = (String) params.getOtherParams().get("taskId");
         try {
             int rtnCode = this.crawlerServiceImpl.analysisTaskRecords(taskId);
             rr.setCode(String.valueOf(rtnCode));
@@ -303,20 +312,21 @@ public class CrawlerController extends BaseController {
     /**
      * 开始启动数据处理，即针对抓取的数据进行处理，
      * 并形成书籍等章节等表数据
-     * @param params   //抓取日志记录
+     *
+     * @param params //抓取日志记录
      * @return
      */
     @CrossOrigin(origins = "*")
     @ResponseBody
-    @RequestMapping(value="/dataHandler",method = RequestMethod.POST)
-    public ResponseResult startDataHandler(@RequestBody AcceptParams params){
+    @RequestMapping(value = "/dataHandler", method = RequestMethod.POST)
+    public ResponseResult startDataHandler(@RequestBody AcceptParams params) {
 
-        List  ids = (List)params.getOtherParams().get("ids");
-        boolean single = (boolean)params.getOtherParams().get("single");
+        List ids = (List) params.getOtherParams().get("ids");
+        boolean single = (boolean) params.getOtherParams().get("single");
         ResponseResult rr = new ResponseResult();
-        Map<String,Boolean> result = crawlerlogServiceImpl.handlePageContent(ids);
+        Map<String, Boolean> result = crawlerlogServiceImpl.handlePageContent(ids);
         if (single)
-            rr.setResultData("handle_"+ids.get(0));
+            rr.setResultData("handle_" + ids.get(0));
         else
             rr.setResultData(result);
         rr.setCode("1");
@@ -331,14 +341,14 @@ public class CrawlerController extends BaseController {
      */
     @CrossOrigin(origins = "*")
     @ResponseBody
-    @RequestMapping(value="/getPageRecord",method = RequestMethod.POST)
-    public ResponseResult getCrawlerPageRecord(@RequestBody AcceptParams queryParams){
+    @RequestMapping(value = "/getPageRecord", method = RequestMethod.POST)
+    public ResponseResult getCrawlerPageRecord(@RequestBody AcceptParams queryParams) {
 
         ResponseResult dataResult = new ResponseResult();
-        PageResult<Crawlerlog> crawlerPages = (PageResult<Crawlerlog>)queryParams.getPageInfo();
+        PageResult<Crawlerlog> crawlerPages = (PageResult<Crawlerlog>) queryParams.getPageInfo();
         QueryModel queryModel = queryParams.paramsToQueryModel();
         try {
-            this.crawlerlogServiceImpl.findObjectWithBlob(queryModel,crawlerPages);
+            this.crawlerlogServiceImpl.findObjectWithBlob(queryModel, crawlerPages);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -358,18 +368,18 @@ public class CrawlerController extends BaseController {
      */
     @CrossOrigin(origins = "*")
     @ResponseBody
-    @RequestMapping(value="/delCrawlerRecord",method = RequestMethod.POST)
-    public ResponseResult delCrawlerRecord(@RequestBody AcceptParams params){
+    @RequestMapping(value = "/delCrawlerRecord", method = RequestMethod.POST)
+    public ResponseResult delCrawlerRecord(@RequestBody AcceptParams params) {
 
-        List<Integer>  ids = (List<Integer>)params.getOtherParams().get("ids");
-        boolean single = (boolean)params.getOtherParams().get("single");
+        List<Integer> ids = (List<Integer>) params.getOtherParams().get("ids");
+        boolean single = (boolean) params.getOtherParams().get("single");
 
-        Integer[] tmpIds= new Integer[ids.size()];
+        Integer[] tmpIds = new Integer[ids.size()];
         ids.toArray(tmpIds);
         crawlerlogServiceImpl.delete(tmpIds);
         ResponseResult dataResult = new ResponseResult();
         if (single)
-            dataResult.setResultData("del_"+ids.get(0));
+            dataResult.setResultData("del_" + ids.get(0));
         else
             dataResult.setResultData(false);
         dataResult.setCode("1");

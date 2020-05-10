@@ -48,8 +48,8 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Netbook> getNetBookByType(String type) {
 
-         QueryModel queryModel = new QueryModel();
-        queryModel.createCriteria().andEqualTo("b.idbooktype",type);
+        QueryModel queryModel = new QueryModel();
+        queryModel.createCriteria().andEqualTo("b.idbooktype", type);
         List<Netbook> books = this.netbookMapperExt.getBooksByCategory(queryModel);
 
         return books;
@@ -60,10 +60,10 @@ public class BookServiceImpl implements BookService {
     public List<Netbook> getNetBookPageByType(String type, PageResult page) {
 
         QueryModel queryModel = new QueryModel();
-        queryModel.createCriteria().andEqualTo("b.idbooktype",type);
-        List<Netbook> books =null;
+        queryModel.createCriteria().andEqualTo("b.idbooktype", type);
+        List<Netbook> books = null;
         try {
-            this.netbookMapperExt.getBooksByCategory(queryModel,page);
+            this.netbookMapperExt.getBooksByCategory(queryModel, page);
             books = page.getPageDatas();
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,11 +72,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Netbook> getNetBookPageByType(String type, int rows,int curpage) {
+    public List<Netbook> getNetBookPageByType(String type, int rows, int curpage) {
 
-        PageResult<Netbook> page = new PageResult<>(curpage,rows);
-        this.getNetBookPageByType(type,page);
-        List<Netbook> books =page.getPageDatas();
+        PageResult<Netbook> page = new PageResult<>(curpage, rows);
+        this.getNetBookPageByType(type, page);
+        List<Netbook> books = page.getPageDatas();
         return books;
     }
 
@@ -84,7 +84,7 @@ public class BookServiceImpl implements BookService {
     public List<Chapter> getBookChapter(String netBookId) {
 
         QueryModel queryModel = new QueryModel();
-        queryModel.createCriteria().andEqualTo("BookId",netBookId);
+        queryModel.createCriteria().andEqualTo("BookId", netBookId);
         List<Chapter> chapters = this.chapterServiceImpl.findObjects(queryModel);
         return chapters;
     }
@@ -97,7 +97,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public byte[] getBookImageByBook(String netBookId)  {
+    public byte[] getBookImageByBook(String netBookId) {
         NetbookWithBLOBs book = this.netbookServiceImpl.getNetBookWithBlobById(netBookId);
         return book.getCover();
     }

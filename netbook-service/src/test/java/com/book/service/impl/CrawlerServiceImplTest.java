@@ -24,13 +24,14 @@ public class CrawlerServiceImplTest extends BaseTest {
 
     @Test
     public void crawlerBookUrl() {
-        CrawlerTask task =crawlerTaskServiceImpl.findObjectById("6232de1779534e17b2fed4ed9891e61e");
+        CrawlerTask task = crawlerTaskServiceImpl.findObjectById("6232de1779534e17b2fed4ed9891e61e");
         try {
             CrawlController controller = this.crawlerServiceImpl.crawlerBookUrl(task);
 
-            for(int i=0;i<=10;i++){
+            for (int i = 0; i <= 10; i++) {
                 System.out.println(controller.isShuttingDown());
-            };
+            }
+            ;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -39,7 +40,7 @@ public class CrawlerServiceImplTest extends BaseTest {
     }
 
     @Test
-    public void testPattern(){
+    public void testPattern() {
 //        Pattern pattern = Pattern
 //                .compile("(http://|ftp://|https://|www){0,1}[^\u4e00-\u9fa5\\s]*?\\.(com|net|cn|me|tw|fr)[^\u4e00-\u9fa5\\s]*");
 //        // 空格结束
@@ -96,18 +97,30 @@ public class CrawlerServiceImplTest extends BaseTest {
     }
 
     @Test
-    public  void testWebPattern() {
+    public void testWebPattern() {
 
-        String regex = "https://www.999xs.com/files/article/html/(10|[]1-9])/.*/.*";
+        String regex = "https://www.999xs.com/files/article/html/(20|1[1-9])/.*/.*";
         String regex1 = "^((https|http|ftp|rtsp|mms)?://)www.61ww.com/.*/36332/.*";
-        String str = "https://www.999xs.com/files/article/html/10/44343/3333.html";
+        String str = "https://www.999xs.com/files/article/html/";
         String pattern = "^((https|http|ftp|rtsp|mms)?://)www.61ww.com";
-
-        Pattern r = Pattern.compile(regex);
-        Matcher m = r.matcher(str);
         System.out.println(regex);
-        System.out.println(m.matches());
-       // System.out.println(r.matcher("https://www.61ww.com/book/36332/").matches());
+        Pattern r = Pattern.compile(regex);
+        for (int i = 11; i <= 20; i++) {
+            String str1 = str + i + "/44343/3333.html";
+            Matcher m = r.matcher(str1);
+            System.out.println(str1);
+            System.out.println(m.matches());
+        }
+
+        for (int i = 21; i <= 30; i++) {
+            String str1 = str + i + "/44343/3333.html";
+            Matcher m = r.matcher(str1);
+            System.out.println(str1);
+            System.out.println(m.matches());
+        }
+
+
+        // System.out.println(r.matcher("https://www.61ww.com/book/36332/").matches());
     }
 
 

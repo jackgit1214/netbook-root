@@ -64,58 +64,55 @@ public class CrawlerServiceImpl extends AbstractCrawlerServiceImpl implements Cr
     }
 
     @Override
-    public int startCrawlerTask(String taskId,CrawlerTask crawlerTask) throws Exception {
+    public int startCrawlerTask(String taskId, CrawlerTask crawlerTask) throws Exception {
 
         CrawlerTask crawlerTaskU = this.crawlerTaskServiceImpl.findObjectById(taskId);
-        if (crawlerTaskU==null){
+        if (crawlerTaskU == null) {
             return -1;
         }
         CrawlController controller = this.crawlerBookUrl(crawlerTaskU);
-        taskControllers.put(taskId,controller);
+        taskControllers.put(taskId, controller);
         crawlerTaskU.setStartDate(new Date());
         crawlerTaskU.setTaskState("1");
         int code = this.crawlerTaskServiceImpl.save(crawlerTaskU);
-        BeanUtils.copyProperties(crawlerTaskU,crawlerTask);
+        BeanUtils.copyProperties(crawlerTaskU, crawlerTask);
         return code;
     }
 
     @Override
-    public int stopCrawlerTask(String taskId,CrawlerTask crawlerTask) throws Exception {
-
-        CrawlerTask crawlerTaskU = this.crawlerTaskServiceImpl.findObjectById(taskId);
-        if (crawlerTaskU!=null){
-            crawlerTaskU.setEndDate(new Date());
-            crawlerTaskU.setTaskState("0");
-        }
-        if (!taskControllers.containsKey(taskId)){ //只更新状态
-            this.crawlerTaskServiceImpl.save(crawlerTaskU);
-           return -1;
+    public int stopCrawlerTask(String taskId, CrawlerTask crawlerTask) throws Exception {
+        int rtnCode = 0;
+        rtnCode = crawlerTaskServiceImpl.updateTaskById(taskId);
+        if (!taskControllers.containsKey(taskId)) { //只更新状态,已抓取记录
+            CrawlerTask crawlerTaskU = this.crawlerTaskServiceImpl.findObjectById(taskId);
+            BeanUtils.copyProperties(crawlerTaskU, crawlerTask);
+            return -1;
         }
         CrawlController controller = taskControllers.get(taskId);
-        if (!controller.isFinished()){
+        if (!controller.isFinished()) {
             controller.shutdown();
             controller.waitUntilFinish();
         }
         taskControllers.remove(taskId);
 
-        int rtnCode = this.crawlerTaskServiceImpl.save(crawlerTaskU);
-        BeanUtils.copyProperties(crawlerTaskU,crawlerTask);
+        CrawlerTask crawlerTaskU = this.crawlerTaskServiceImpl.findObjectById(taskId);
+        BeanUtils.copyProperties(crawlerTaskU, crawlerTask);
         return rtnCode;
     }
 
     @Override
     public int handleErrorTaskRecord(String taskId) throws Exception {
         QueryModel queryModel = new QueryModel();
-        queryModel.createCriteria().andEqualTo("taskId",taskId).andEqualTo("isFinished","0");
-        List<Crawlerlog> crawlerLogs =  this.crawlerlogServiceImpl.findObjects(queryModel);
-        if (crawlerLogs==null || crawlerLogs.size()<=0){
+        queryModel.createCriteria().andEqualTo("taskId", taskId).andEqualTo("isFinished", "0");
+        List<Crawlerlog> crawlerLogs = this.crawlerlogServiceImpl.findObjects(queryModel);
+        if (crawlerLogs == null || crawlerLogs.size() <= 0) {
             return -1;
         }
         CrawlConfig config = this.getDefaultConfig();
         config.setMaxDepthOfCrawling(0);
         config.setResumableCrawling(true);
         CrawlController controller = this.getController(config);
-        for (Crawlerlog crawlerLog:crawlerLogs){
+        for (Crawlerlog crawlerLog : crawlerLogs) {
             String tmpUrl = crawlerLog.getCrawlerUrl();
             controller.addSeed(tmpUrl);
         }
@@ -129,16 +126,16 @@ public class CrawlerServiceImpl extends AbstractCrawlerServiceImpl implements Cr
     @Override
     public int analysisTaskRecords(String taskId) throws Exception {
         QueryModel queryModel = new QueryModel();
-        queryModel.createCriteria().andEqualTo("taskId",taskId).andEqualTo("isFinished","1");
-        List<Crawlerlog> crawlerLogs =  this.crawlerlogServiceImpl.findObjectWithBlob(queryModel);
-        if (crawlerLogs==null || crawlerLogs.size()<=0){
+        queryModel.createCriteria().andEqualTo("taskId", taskId).andEqualTo("isFinished", "1");
+        List<Crawlerlog> crawlerLogs = this.crawlerlogServiceImpl.findObjectWithBlob(queryModel);
+        if (crawlerLogs == null || crawlerLogs.size() <= 0) {
             return -1;
         }
-        for (Crawlerlog crawlerLog:crawlerLogs){
+        for (Crawlerlog crawlerLog : crawlerLogs) {
             URL tmpUrl = new URL(crawlerLog.getCrawlerUrl());
             String domainName = tmpUrl.getHost();
             BookHandler bookHandler = handleFactory.createPageHandle(domainName);
-            if (bookHandler.handelPage(crawlerLog)){ //处理成功，更新抓取记录处理状态
+            if (bookHandler.handelPage(crawlerLog)) { //处理成功，更新抓取记录处理状态
                 crawlerLog.setIsFinished("2");
                 this.crawlerlogServiceImpl.save(crawlerLog);
             }
@@ -187,13 +184,13 @@ public class CrawlerServiceImpl extends AbstractCrawlerServiceImpl implements Cr
     }
 
     @PostConstruct
-    public void taskMonitor(){
+    public void taskMonitor() {
         Thread monitorThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while(true){
-                    taskControllers.forEach((taskId,controller)->{
-                        if (controller.isFinished()){
+                while (true) {
+                    taskControllers.forEach((taskId, controller) -> {
+                        if (controller.isFinished()) {
                             crawlerTaskServiceImpl.updateTaskById(taskId);
                             taskControllers.remove(taskId);
                         }

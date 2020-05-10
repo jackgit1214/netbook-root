@@ -1,79 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
-	<context:component-scan base-package="com.book.web"
-		use-default-filters="false">
-		<context:include-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
-		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
-	</context:component-scan>
-	<!--
-	<context:property-placeholder location="classpath:messages/messages.properties" />-->
-	<import resource="mvc-view-config.xml" />
-	<mvc:annotation-driven/>
-	<!--
+    <context:component-scan base-package="com.book.web"
+                            use-default-filters="false">
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+    <!--
+    <context:property-placeholder location="classpath:messages/messages.properties" />-->
+    <import resource="mvc-view-config.xml"/>
+    <mvc:annotation-driven/>
+    <!--
      <import resource="mvc-interceptor-config.xml" /> -->
-	 <!--项目中配置资源
-	 <import resource="mvc-convertServices.xml" />
-	 <mvc:resources mapping="js/**" location="/resources/js/" />
-	 <mvc:resources mapping="css/**" location="/resources/css/" />
-	 <mvc:resources mapping="img/**" location="/resources/img/" />
-	 <mvc:resources mapping="fonts/**" location="/resources/fonts/" />
+    <!--项目中配置资源
+    <import resource="mvc-convertServices.xml" />
+    <mvc:resources mapping="js/**" location="/resources/js/" />
+    <mvc:resources mapping="css/**" location="/resources/css/" />
+    <mvc:resources mapping="img/**" location="/resources/img/" />
+    <mvc:resources mapping="fonts/**" location="/resources/fonts/" />
 -->
-	 <mvc:view-controller path="/" view-name="redirect:/index" />
+    <mvc:view-controller path="/" view-name="redirect:/index"/>
 
-	<!-- 全局验证机制
-	<mvc:annotation-driven />
-	<bean id="messageSource"
-		class="org.springframework.context.support.ResourceBundleMessageSource"
-		p:defaultEncoding="utf-8" p:cacheSeconds="120">
-		<property name="basenames">
-			<list>
-				<value>messages/messages</value>
-				<value>messages/messages_ui</value>
-			</list>
-		</property>
-	</bean>-->
+    <!-- 全局验证机制
+    <mvc:annotation-driven />
+    <bean id="messageSource"
+        class="org.springframework.context.support.ResourceBundleMessageSource"
+        p:defaultEncoding="utf-8" p:cacheSeconds="120">
+        <property name="basenames">
+            <list>
+                <value>messages/messages</value>
+                <value>messages/messages_ui</value>
+            </list>
+        </property>
+    </bean>-->
 
-	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="defaultEncoding" value="utf-8" />
-		<property name="maxUploadSize" value="10485760000" />
-		<property name="maxInMemorySize" value="40960" />
-		<property name="resolveLazily" value="true" />
-	</bean>
-	<bean id="exceptionResolver" class="com.framework.exception.FrameWorkExceptionHandler" p:order="0" >
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="maxUploadSize" value="10485760000"/>
+        <property name="maxInMemorySize" value="40960"/>
+        <property name="resolveLazily" value="true"/>
+    </bean>
+    <bean id="exceptionResolver" class="com.framework.exception.FrameWorkExceptionHandler" p:order="0">
 
-		<property name="defaultErrorView" value="exception" />
-		<property name="warnLogCategory" value="warn" />
-		<property name="exceptionMappings">
-			<props>
+        <property name="defaultErrorView" value="exception"/>
+        <property name="warnLogCategory" value="warn"/>
+        <property name="exceptionMappings">
+            <props>
 
                 <prop key="com.framework.exception.BusinessException">errors/businessError</prop>
-				<prop key="org.springframework.validation.BindException">errors/error111</prop>
-				<prop key="java.lang.Exception">errors/businessError</prop>
-				<prop key="java.lang.Throwable">errors/error</prop>
+                <prop key="org.springframework.validation.BindException">errors/error111</prop>
+                <prop key="java.lang.Exception">errors/businessError</prop>
+                <prop key="java.lang.Throwable">errors/error</prop>
 
-			</props>
-		</property>
-		<property name="statusCodes">
-			<props>
-				<prop key="errors/error">500</prop>
-				<prop key="errors/404">404</prop>
-				<prop key="errors/404">400</prop>
-			</props>
-		</property>
-	</bean>
-	<aop:aspectj-autoproxy proxy-target-class="true"/>
+            </props>
+        </property>
+        <property name="statusCodes">
+            <props>
+                <prop key="errors/error">500</prop>
+                <prop key="errors/404">404</prop>
+                <prop key="errors/404">400</prop>
+            </props>
+        </property>
+    </bean>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
 
 </beans>

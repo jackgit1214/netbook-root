@@ -9,6 +9,7 @@ public class AcceptParams<T> {
 
     public AcceptParams() {
     }
+
     private String singleQueryInfo;
 
     public String getSingleQueryInfo() {
@@ -21,8 +22,8 @@ public class AcceptParams<T> {
 
     private PageResult<?> pageInfo;
 
-    private T customModel ;
-    private Map<String,Object> otherParams;
+    private T customModel;
+    private Map<String, Object> otherParams;
 
     public PageResult<?> getPageInfo() {
         return pageInfo;
@@ -40,15 +41,15 @@ public class AcceptParams<T> {
         this.otherParams = otherParams;
     }
 
-    public QueryModel paramsToQueryModel(){
+    public QueryModel paramsToQueryModel() {
         QueryModel queryModel = new QueryModel();
         QueryModel.Criteria criteria = queryModel.createCriteria();
-        boolean isQuery =false;
+        boolean isQuery = false;
         for (Map.Entry<String, Object> param : this.otherParams.entrySet()) {
             String key = param.getKey();
             String value = param.getValue().toString();
-            if (null!=value && !"".equals(value.toString().trim())){
-                criteria.andLike(key,"%"+value.toString()+"%");
+            if (null != value && !"".equals(value.toString().trim())) {
+                criteria.andLike(key, "%" + value.toString() + "%");
                 isQuery = true;
             }
         }

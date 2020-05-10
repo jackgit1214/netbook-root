@@ -2,20 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.book.dao.NetbookMapperExt">
 
-   <select id="getBooksByCategory"  resultMap="com.book.dao.NetbookMapper.ResultMapWithBLOBs">
-     select
-     <if test="queryModel != null and queryModel.distinct">
-       distinct
-     </if>
-     a.IdBook, a.BookName, a.Author, a.SectionNum,a.AddTime, a.UpdateTime, a.CreateTime, a.IsFinish,
-     a.NetBookId, a.oriTypeName, a.Origin, a.BookAbstract, a.Cover
-     from netbook a, booktyperelation b
-     where a.idbook = b.idbook
-     <if test="queryModel != null">
-       <include refid="public.and_Clause" />
-     </if>
-     <if test="queryModel != null and queryModel.orderByClause != null">
-       order by ${queryModel.orderByClause}
-     </if>
-   </select>
+    <select id="getBooksByCategory" resultMap="com.book.dao.NetbookMapper.ResultMapWithBLOBs">
+        select
+        <if test="queryModel != null and queryModel.distinct">
+            distinct
+        </if>
+        a.IdBook, a.BookName, a.Author, a.SectionNum,a.AddTime, a.UpdateTime, a.CreateTime, a.IsFinish,
+        a.NetBookId, a.oriTypeName, a.Origin, a.BookAbstract, a.Cover
+        from netbook a, booktyperelation b
+        where a.idbook = b.idbook
+        <if test="queryModel != null">
+            <include refid="public.and_Clause"/>
+        </if>
+        <if test="queryModel != null and queryModel.orderByClause != null">
+            order by ${queryModel.orderByClause}
+        </if>
+    </select>
 </mapper>

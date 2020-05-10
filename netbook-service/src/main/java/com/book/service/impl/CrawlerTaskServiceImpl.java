@@ -36,37 +36,38 @@ public class CrawlerTaskServiceImpl extends AbstractBusinessService<CrawlerTask>
         int rows = this.crawlerTaskMapper.deleteByPrimaryKey(recordId);
         QueryModel queryModel = new QueryModel();
         QueryModel.Criteria criteria = queryModel.createCriteria();
-        criteria.andEqualTo("TaskId",recordId);
+        criteria.andEqualTo("TaskId", recordId);
         int logRows = this.crawlerlogServiceImpl.delete(queryModel);
-        this.logger.debug("crawlerLogs rows: {}",logRows);
-        this.logger.debug("taskRows: {}",rows);
+        this.logger.debug("crawlerLogs rows: {}", logRows);
+        this.logger.debug("taskRows: {}", rows);
         return rows;
     }
 
 
     public int delete(String[] recordIds) {
-        int rows=0;
+        int rows = 0;
         for (String id : recordIds) {
             rows = rows + this.delete(id);
             // rows = rows + this.crawlerTaskMapper.deleteByPrimaryKey(id);}
         }
         return rows;
-     }
+    }
 
     public int save(CrawlerTask record) {
-        int rows=0;
-        if (record.getTaskId()==null || "".equals(record.getTaskId())) {
+        int rows = 0;
+        if (record.getTaskId() == null || "".equals(record.getTaskId())) {
             record.setTaskId(UUIDUtil.getUUID());
             rows = this.crawlerTaskMapper.insert(record);
         } else {
             rows = this.crawlerTaskMapper.updateByPrimaryKey(record);
         }
-        this.logger.debug("rows: {}",rows);
+        this.logger.debug("rows: {}", rows);
         return rows;
     }
 
     /**
      * 任务执行完毕后，更新时间与状态，实际抓取数量
+     *
      * @param taskId
      * @return
      */
@@ -75,18 +76,18 @@ public class CrawlerTaskServiceImpl extends AbstractBusinessService<CrawlerTask>
         int rtnCode = 0;
         QueryModel queryModel = new QueryModel();
         QueryModel.Criteria criteria = queryModel.createCriteria();
-        criteria.andEqualTo("taskId",taskId);
-        try{
+        criteria.andEqualTo("taskId", taskId);
+        try {
             CrawlerTask task = this.crawlerTaskMapper.selectByPrimaryKey(taskId);
             int rows = this.crawlerlogServiceImpl.countByCondition(queryModel);
             task.setEndDate(new Date());
             task.setActualNumber(rows);
             task.setTaskState("0");
-            rtnCode = this.crawlerTaskMapper.updateByCondition(task,queryModel);
-        }catch(Exception e){
+            rtnCode = this.crawlerTaskMapper.updateByCondition(task, queryModel);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return  rtnCode;
+        return rtnCode;
     }
 }

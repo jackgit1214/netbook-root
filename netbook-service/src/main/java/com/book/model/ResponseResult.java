@@ -5,14 +5,14 @@ public class ResponseResult {
     /**
      * 响应信息
      */
-    private String message="success";
+    private String message = "success";
 
     /**
      * 响应代码，用于前端页面的逻辑判断
      * 1、表示成功，
      * 0、表示请求失败
      */
-    private String code="1";
+    private String code = "1";
 
     /**
      * 操作类型，CRUD
@@ -32,7 +32,7 @@ public class ResponseResult {
     /**
      * 后续跳转连接
      */
-    private String skipLink ;
+    private String skipLink;
 
     public ResponseResult() {
     }

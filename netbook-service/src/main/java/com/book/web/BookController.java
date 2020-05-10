@@ -81,27 +81,27 @@ public class BookController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/category1")
-    public ModelMap getCatelogy() throws Exception{
+    public ModelMap getCatelogy() throws Exception {
         ModelMap mm = new ModelMap();
-        List<Booktype> categories =  this.bookServiceImpl.getBookCategory();
-        ResponseResult resResult = new ResponseResult("1","类型获取成功！",categories);
-        mm.put("result",resResult);
+        List<Booktype> categories = this.bookServiceImpl.getBookCategory();
+        ResponseResult resResult = new ResponseResult("1", "类型获取成功！", categories);
+        mm.put("result", resResult);
         return mm;
     }
 
     @ResponseBody
     @RequestMapping(value = "/category")
-    public ResponseResult getCatelogy1() throws Exception{
-        List<Booktype> categories =  this.bookServiceImpl.getBookCategory();
-        ResponseResult resResult = new ResponseResult("1","类型获取成功！",categories);
+    public ResponseResult getCatelogy1() throws Exception {
+        List<Booktype> categories = this.bookServiceImpl.getBookCategory();
+        ResponseResult resResult = new ResponseResult("1", "类型获取成功！", categories);
         return resResult;
     }
 
     @ResponseBody
     @RequestMapping(value = "/books")
-    public ResponseResult getBooks(String categoryKey){
+    public ResponseResult getBooks(String categoryKey) {
         List<Netbook> books = this.bookServiceImpl.getNetBookByType(categoryKey);
-        ResponseResult resResult = new ResponseResult("1","类型获取成功！",books);
+        ResponseResult resResult = new ResponseResult("1", "类型获取成功！", books);
         return resResult;
     }
 }

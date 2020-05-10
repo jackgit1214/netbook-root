@@ -31,8 +31,8 @@ public class BookControllerTest extends BaseTest {
         System.out.println(JSONObject.toJSONString(pageResult));
 
         String kk = "{\"curPage\":1,\"endRow\":20,\"firstPage\":1,\"lastPage\":5,\"nextPage\":2,\"pageRowNum\":20,\"prevPage\":0,\"startRow\":1,\"totalRowNum\":100}";
-        kk="{\"startRow\":0,\"pageRowNum\":10}";
-        PageResult pageResult1 = JSONObject.parseObject(kk,PageResult.class);
+        kk = "{\"startRow\":0,\"pageRowNum\":10}";
+        PageResult pageResult1 = JSONObject.parseObject(kk, PageResult.class);
 
         System.out.println(pageResult1);
 
@@ -79,12 +79,11 @@ public class BookControllerTest extends BaseTest {
     public void test222() throws Exception {
 
         String tmpUrl = "https://www.61ww.com/36/36332/12032458.html";
-        java.net.URL  url = new  java.net.URL(tmpUrl);
+        java.net.URL url = new java.net.URL(tmpUrl);
         String host = url.getHost();// 获取主机名
 
-        System.out.println("host:"+host);
-        System.out.println(tmpUrl+"的地址:"+ InetAddress.getByName(host).getHostAddress());
-
+        System.out.println("host:" + host);
+        System.out.println(tmpUrl + "的地址:" + InetAddress.getByName(host).getHostAddress());
 
 
     }

@@ -24,6 +24,6 @@ public interface BookService {
 
     Chapter getChapterByChapterId(String chapterId);
 
-    byte[] getBookImageByBook(String netBookId)  ;
+    byte[] getBookImageByBook(String netBookId);
 
 }

@@ -7,9 +7,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface NetbookMapperExt extends  NetbookMapper {
+public interface NetbookMapperExt extends NetbookMapper {
 
-    public List<Netbook> getBooksByCategory(@Param("queryModel")QueryModel queryModel,@Param("page") PageResult<Netbook> page);
+    public List<Netbook> getBooksByCategory(@Param("queryModel") QueryModel queryModel, @Param("page") PageResult<Netbook> page);
 
-    public List<Netbook> getBooksByCategory(@Param("queryModel")QueryModel queryModel);
+    public List<Netbook> getBooksByCategory(@Param("queryModel") QueryModel queryModel);
 }
