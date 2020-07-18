@@ -157,10 +157,8 @@ public class URLCanonicalizer {
     /**
      * Canonicalize the query string.
      *
-     * @param paramsMap
-     *            Parameter map whose name-value pairs are in order of insertion.
-     * @param charset
-     *            Charset of html page
+     * @param paramsMap Parameter map whose name-value pairs are in order of insertion.
+     * @param charset   Charset of html page
      * @return Canonical form of query string.
      * @throws UnsupportedEncodingException
      */

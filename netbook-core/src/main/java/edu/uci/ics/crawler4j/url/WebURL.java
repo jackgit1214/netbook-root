@@ -123,9 +123,8 @@ public class WebURL implements Serializable {
     }
 
     /**
-     * @return
-     *      unique document id of the parent page. The parent page is the
-     *      page in which the Url of this page is first observed.
+     * @return unique document id of the parent page. The parent page is the
+     * page in which the Url of this page is first observed.
      */
     public int getParentDocid() {
         return parentDocid;
@@ -136,9 +135,8 @@ public class WebURL implements Serializable {
     }
 
     /**
-     * @return
-     *      url of the parent page. The parent page is the page in which
-     *      the Url of this page is first observed.
+     * @return url of the parent page. The parent page is the page in which
+     * the Url of this page is first observed.
      */
     public String getParentUrl() {
         return parentUrl;
@@ -149,9 +147,8 @@ public class WebURL implements Serializable {
     }
 
     /**
-     * @return
-     *      crawl depth at which this Url is first observed. Seed Urls
-     *      are at depth 0. Urls that are extracted from seed Urls are at depth 1, etc.
+     * @return crawl depth at which this Url is first observed. Seed Urls
+     * are at depth 0. Urls that are extracted from seed Urls are at depth 1, etc.
      */
     public short getDepth() {
         return depth;
@@ -169,8 +166,8 @@ public class WebURL implements Serializable {
      * the entire domain.
      *
      * @return Domain of this Url. For 'http://www.example.com/sample.htm',
-     *         effective top level domain is 'example.com'. For
-     *         'http://www.my.company.co.uk' the domain is 'company.co.uk'.
+     * effective top level domain is 'example.com'. For
+     * 'http://www.my.company.co.uk' the domain is 'company.co.uk'.
      */
     public String getDomain() {
         return registeredDomain;
@@ -188,8 +185,7 @@ public class WebURL implements Serializable {
     }
 
     /**
-     * @return
-     *      path of this Url. For 'http://www.example.com/sample.htm', registeredDomain will be 'sample.htm'
+     * @return path of this Url. For 'http://www.example.com/sample.htm', registeredDomain will be 'sample.htm'
      */
     public String getPath() {
         return path;
@@ -200,9 +196,8 @@ public class WebURL implements Serializable {
     }
 
     /**
-     * @return
-     *      anchor string. For example, in <a href="example.com">A sample anchor</a>
-     *      the anchor string is 'A sample anchor'
+     * @return anchor string. For example, in <a href="example.com">A sample anchor</a>
+     * the anchor string is 'A sample anchor'
      */
     public String getAnchor() {
         return anchor;
@@ -225,7 +220,7 @@ public class WebURL implements Serializable {
 
     /**
      * @return tag in which this URL is found
-     * */
+     */
     public String getTag() {
         return tag;
     }

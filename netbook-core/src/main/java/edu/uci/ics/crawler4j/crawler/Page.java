@@ -111,10 +111,9 @@ public class Page {
      * Read contents from an entity, with a specified maximum. This is a replacement of
      * EntityUtils.toByteArray because that function does not impose a maximum size.
      *
-     * @param entity The entity from which to read
+     * @param entity   The entity from which to read
      * @param maxBytes The maximum number of bytes to read
      * @return A byte array containing maxBytes or fewer bytes read from the entity
-     *
      * @throws IOException Thrown when reading fails for any reason
      */
     protected byte[] toByteArray(HttpEntity entity, int maxBytes) throws IOException {
@@ -156,7 +155,7 @@ public class Page {
     /**
      * Loads the content of this page from a fetched HttpEntity.
      *
-     * @param entity HttpEntity
+     * @param entity   HttpEntity
      * @param maxBytes The maximum number of bytes to read
      * @throws IOException when load fails
      */

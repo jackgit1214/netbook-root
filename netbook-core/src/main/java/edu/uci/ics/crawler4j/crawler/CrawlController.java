@@ -198,12 +198,10 @@ public class CrawlController {
      * Start the crawling session and wait for it to finish.
      * This method utilizes default crawler factory that creates new crawler using Java reflection
      *
-     * @param clazz
-     *            the class that implements the logic for crawler threads
-     * @param numberOfCrawlers
-     *            the number of concurrent threads that will be contributing in
-     *            this crawling session.
-     * @param <T> Your class extending WebCrawler
+     * @param clazz            the class that implements the logic for crawler threads
+     * @param numberOfCrawlers the number of concurrent threads that will be contributing in
+     *                         this crawling session.
+     * @param <T>              Your class extending WebCrawler
      */
     public <T extends WebCrawler> void start(Class<T> clazz, int numberOfCrawlers) {
         this.start(new DefaultWebCrawlerFactory<>(clazz), numberOfCrawlers, true);
@@ -213,9 +211,8 @@ public class CrawlController {
      * Start the crawling session and wait for it to finish.
      * This method depends on a single instance of a crawler. Only that instance will be used for crawling.
      *
-     * @param instance
-     *            the instance of a class that implements the logic for crawler threads
-     * @param <T> Your class extending WebCrawler
+     * @param instance the instance of a class that implements the logic for crawler threads
+     * @param <T>      Your class extending WebCrawler
      */
     public <T extends WebCrawler> void start(T instance) {
         this.start(new SingleInstanceFactory<>(instance), 1, true);
@@ -224,12 +221,10 @@ public class CrawlController {
     /**
      * Start the crawling session and wait for it to finish.
      *
-     * @param crawlerFactory
-     *            factory to create crawlers on demand for each thread
-     * @param numberOfCrawlers
-     *            the number of concurrent threads that will be contributing in
-     *            this crawling session.
-     * @param <T> Your class extending WebCrawler
+     * @param crawlerFactory   factory to create crawlers on demand for each thread
+     * @param numberOfCrawlers the number of concurrent threads that will be contributing in
+     *                         this crawling session.
+     * @param <T>              Your class extending WebCrawler
      */
     public <T extends WebCrawler> void start(WebCrawlerFactory<T> crawlerFactory,
                                              int numberOfCrawlers) {
@@ -239,12 +234,10 @@ public class CrawlController {
     /**
      * Start the crawling session and return immediately.
      *
-     * @param crawlerFactory
-     *            factory to create crawlers on demand for each thread
-     * @param numberOfCrawlers
-     *            the number of concurrent threads that will be contributing in
-     *            this crawling session.
-     * @param <T> Your class extending WebCrawler
+     * @param crawlerFactory   factory to create crawlers on demand for each thread
+     * @param numberOfCrawlers the number of concurrent threads that will be contributing in
+     *                         this crawling session.
+     * @param <T>              Your class extending WebCrawler
      */
     public <T extends WebCrawler> void startNonBlocking(WebCrawlerFactory<T> crawlerFactory,
                                                         final int numberOfCrawlers) {
@@ -255,12 +248,10 @@ public class CrawlController {
      * Start the crawling session and return immediately.
      * This method utilizes default crawler factory that creates new crawler using Java reflection
      *
-     * @param clazz
-     *            the class that implements the logic for crawler threads
-     * @param numberOfCrawlers
-     *            the number of concurrent threads that will be contributing in
-     *            this crawling session.
-     * @param <T> Your class extending WebCrawler
+     * @param clazz            the class that implements the logic for crawler threads
+     * @param numberOfCrawlers the number of concurrent threads that will be contributing in
+     *                         this crawling session.
+     * @param <T>              Your class extending WebCrawler
      */
     public <T extends WebCrawler> void startNonBlocking(Class<T> clazz, int numberOfCrawlers) {
         start(new DefaultWebCrawlerFactory<>(clazz), numberOfCrawlers, false);
@@ -479,9 +470,7 @@ public class CrawlController {
      * Adds a new seed URL. A seed URL is a URL that is fetched by the crawler
      * to extract new URLs in it and follow them for crawling.
      *
-     * @param pageUrl
-     *            the URL of the seed
-     *
+     * @param pageUrl the URL of the seed
      * @throws InterruptedException
      * @throws IOException
      */
@@ -497,16 +486,13 @@ public class CrawlController {
      * with document ids 1,2, and 7. Then the next URL that is found during the
      * crawl will get a doc id of 8. Also you need to ensure to add seeds in
      * increasing order of document ids.
-     *
+     * <p>
      * Specifying doc ids is mainly useful when you have had a previous crawl
      * and have stored the results and want to start a new crawl with seeds
      * which get the same document ids as the previous crawl.
      *
-     * @param pageUrl
-     *            the URL of the seed
-     * @param docId
-     *            the document id that you want to be assigned to this seed URL.
-     *
+     * @param pageUrl the URL of the seed
+     * @param docId   the document id that you want to be assigned to this seed URL.
      * @throws InterruptedException
      * @throws IOException
      */
@@ -553,17 +539,14 @@ public class CrawlController {
      * feature is useful when you have had a previous crawl and have stored the
      * Urls and their associated document ids and want to have a new crawl which
      * is aware of the previously seen Urls and won't re-crawl them.
-     *
+     * <p>
      * Note that if you add three seen Urls with document ids 1,2, and 7. Then
      * the next URL that is found during the crawl will get a doc id of 8. Also
      * you need to ensure to add seen Urls in increasing order of document ids.
      *
-     * @param url
-     *            the URL of the page
-     * @param docId
-     *            the document id that you want to be assigned to this URL.
+     * @param url   the URL of the page
+     * @param docId the document id that you want to be assigned to this URL.
      * @throws UnsupportedEncodingException
-     *
      */
     public void addSeenUrl(String url, int docId) throws UnsupportedEncodingException {
         String canonicalUrl = URLCanonicalizer.getCanonicalURL(url);

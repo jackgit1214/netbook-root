@@ -104,7 +104,9 @@ public class BinaryParseData implements ParseData {
         return transformerHandler;
     }
 
-    /** @return Parsed binary content or null */
+    /**
+     * @return Parsed binary content or null
+     */
     public String getHtml() {
         return html;
     }

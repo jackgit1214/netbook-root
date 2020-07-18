@@ -109,10 +109,8 @@ public class WebCrawler implements Runnable {
     /**
      * Initializes the current instance of the crawler
      *
-     * @param id
-     *            the id of this crawler instance
-     * @param crawlController
-     *            the controller that manages this crawling session
+     * @param id              the id of this crawler instance
+     * @param crawlController the controller that manages this crawling session
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
@@ -167,8 +165,8 @@ public class WebCrawler implements Runnable {
      * overridden by sub-classes to perform custom logic for different status
      * codes. For example, 404 pages can be logged, etc.
      *
-     * @param webUrl WebUrl containing the statusCode
-     * @param statusCode Html Status Code number
+     * @param webUrl            WebUrl containing the statusCode
+     * @param statusCode        Html Status Code number
      * @param statusDescription Html Status COde description
      */
     protected void handlePageStatusCode(WebURL webUrl, int statusCode, String statusDescription) {
@@ -209,6 +207,7 @@ public class WebCrawler implements Runnable {
 
     /**
      * Emitted when the crawler is redirected to an invalid Location.
+     *
      * @param page
      */
     protected void onRedirectedToInvalidUrl(Page page) {
@@ -220,8 +219,8 @@ public class WebCrawler implements Runnable {
      * This function is called if the crawler encountered an unexpected http status code ( a
      * status code other than 3xx)
      *
-     * @param urlStr URL in which an unexpected error was encountered while crawling
-     * @param statusCode Html StatusCode
+     * @param urlStr      URL in which an unexpected error was encountered while crawling
+     * @param statusCode  Html StatusCode
      * @param contentType Type of Content
      * @param description Error Description
      */
@@ -237,7 +236,6 @@ public class WebCrawler implements Runnable {
      * This function is called if the content of a url could not be fetched.
      *
      * @param webUrl URL which content failed to be fetched
-     *
      * @deprecated use {@link #onContentFetchError(Page)}
      */
     @Deprecated
@@ -358,13 +356,11 @@ public class WebCrawler implements Runnable {
      * default implementation indicates that all urls should be included in the crawl
      * except those with a nofollow flag.
      *
-     * @param url
-     *            the url which we are interested to know whether it should be
-     *            included in the crawl or not.
-     * @param referringPage
-     *           The Page in which this url was found.
+     * @param url           the url which we are interested to know whether it should be
+     *                      included in the crawl or not.
+     * @param referringPage The Page in which this url was found.
      * @return if the url should be included in the crawl it returns true,
-     *         otherwise false is returned.
+     * otherwise false is returned.
      */
     public boolean shouldVisit(Page referringPage, WebURL url) {
         if (myController.getConfig().isRespectNoFollow()) {
@@ -385,7 +381,7 @@ public class WebCrawler implements Runnable {
      * By default this method returns true always, but classes that extend WebCrawler can
      * override it in order to implement particular policies about which pages should be
      * mined for outgoing links and which should not.
-     *
+     * <p>
      * If links from the URL are not being followed, then we are not operating as
      * a web crawler and need not check robots.txt before fetching the single URL.
      * (see definition at http://www.robotstxt.org/faq/what.html).  Thus URLs that
@@ -402,8 +398,7 @@ public class WebCrawler implements Runnable {
      * Classes that extends WebCrawler should overwrite this function to process
      * the content of the fetched and parsed page.
      *
-     * @param page
-     *            the page object that is just fetched and parsed.
+     * @param page the page object that is just fetched and parsed.
      */
     public void visit(Page page) {
         // Do nothing by default

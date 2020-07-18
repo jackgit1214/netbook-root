@@ -288,8 +288,8 @@ public class CrawlConfig {
     /**
      * Set the lock timeout for the underlying sleepycat DB, in milliseconds. Default is 500.
      *
-     * @see com.sleepycat.je.EnvironmentConfig#setLockTimeout(long, java.util.concurrent.TimeUnit)
      * @param dbLockTimeout
+     * @see com.sleepycat.je.EnvironmentConfig#setLockTimeout(long, java.util.concurrent.TimeUnit)
      */
     public void setDbLockTimeout(long dbLockTimeout) {
         this.dbLockTimeout = dbLockTimeout;
@@ -327,7 +327,6 @@ public class CrawlConfig {
     }
 
     /**
-     *
      * @return userAgentString
      */
     public String getUserAgentString() {
@@ -370,8 +369,7 @@ public class CrawlConfig {
      * Politeness delay in milliseconds (delay between sending two requests to
      * the same host).
      *
-     * @param politenessDelay
-     *            the delay in milliseconds.
+     * @param politenessDelay the delay in milliseconds.
      */
     public void setPolitenessDelay(int politenessDelay) {
         this.politenessDelay = politenessDelay;
@@ -393,9 +391,8 @@ public class CrawlConfig {
     }
 
     /**
-     *
      * @param includeBinaryContentInCrawling Should we fetch binary content such as images,
-     * audio, ...?
+     *                                       audio, ...?
      */
     public void setIncludeBinaryContentInCrawling(boolean includeBinaryContentInCrawling) {
         this.includeBinaryContentInCrawling = includeBinaryContentInCrawling;
@@ -473,7 +470,7 @@ public class CrawlConfig {
 
     /**
      * @param maxDownloadSize Max allowed size of a page. Pages larger than this size will not be
-     * fetched.
+     *                        fetched.
      */
     public void setMaxDownloadSize(int maxDownloadSize) {
         this.maxDownloadSize = maxDownloadSize;
@@ -547,7 +544,7 @@ public class CrawlConfig {
 
     /**
      * @param proxyHost If crawler should run behind a proxy, this parameter can be used for
-     * specifying the proxy host.
+     *                  specifying the proxy host.
      */
     public void setProxyHost(String proxyHost) {
         this.proxyHost = proxyHost;
@@ -559,7 +556,7 @@ public class CrawlConfig {
 
     /**
      * @param proxyPort If crawler should run behind a proxy, this parameter can be used for
-     * specifying the proxy port.
+     *                  specifying the proxy port.
      */
     public void setProxyPort(int proxyPort) {
         this.proxyPort = proxyPort;
@@ -570,9 +567,8 @@ public class CrawlConfig {
     }
 
     /**
-     * @param proxyUsername
-     *        If crawler should run behind a proxy and user/pass is needed for
-     *        authentication in proxy, this parameter can be used for specifying the username.
+     * @param proxyUsername If crawler should run behind a proxy and user/pass is needed for
+     *                      authentication in proxy, this parameter can be used for specifying the username.
      */
     public void setProxyUsername(String proxyUsername) {
         this.proxyUsername = proxyUsername;
@@ -648,6 +644,7 @@ public class CrawlConfig {
 
     /**
      * Gets the configured {@link CookieStore} or null if none is set
+     *
      * @return the {@link CookieStore}
      */
 
@@ -657,6 +654,7 @@ public class CrawlConfig {
 
     /**
      * Sets the {@link CookieStore to be used}
+     *
      * @param cookieStore the {@link CookieStore}
      */
     public void setCookieStore(CookieStore cookieStore) {
@@ -665,6 +663,7 @@ public class CrawlConfig {
 
     /**
      * Gets the current {@link CookieStore} used
+     *
      * @return the {@link CookieStore}
      */
     public boolean isRespectNoFollow() {
@@ -694,8 +693,7 @@ public class CrawlConfig {
      * Should all crawling stop if an unexpected error occurs? Default is
      * {@code false}.
      *
-     * @param haltOnError
-     *            {@code true} if all crawling should be halted
+     * @param haltOnError {@code true} if all crawling should be halted
      */
     public void setHaltOnError(boolean haltOnError) {
         this.haltOnError = haltOnError;
@@ -712,8 +710,7 @@ public class CrawlConfig {
      * Allow single level domains (e.g. http://localhost). This is very useful for
      * testing especially when you may be using localhost.
      *
-     * @param allowSingleLevelDomain
-     *            {@code true} if single level domain should be considered valid
+     * @param allowSingleLevelDomain {@code true} if single level domain should be considered valid
      */
     public void setAllowSingleLevelDomain(boolean allowSingleLevelDomain) {
         this.allowSingleLevelDomain = allowSingleLevelDomain;

@@ -33,7 +33,9 @@ public class HostDirectives {
     public static final int DISALLOWED = 2;
     public static final int UNDEFINED = 3;
 
-    /** A list of rule sets, sorted on match with the configured user agent */
+    /**
+     * A list of rule sets, sorted on match with the configured user agent
+     */
     private Set<UserAgentDirectives> rules;
 
     private final long timeFetched;
