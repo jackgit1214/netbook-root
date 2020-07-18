@@ -9,7 +9,7 @@ import Icon from '@material-ui/core/Icon';
 // core components
 import GridItem from 'components/Grid/GridItem.js';
 import GridContainer from 'components/Grid/GridContainer.js';
-import MaterialTable, { MTableToolbar } from 'material-table';
+import MaterialTable, {MTableToolbar} from 'material-table';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -74,20 +74,20 @@ function CrawlerPage(props) {
     let records = props.crawlerPages.datas;
     React.useEffect(() => {
         crawlerActions.retrieveCrawler();
-    },[]); //空数据，useEffect只执行一次
+    }, []); //空数据，useEffect只执行一次
 
     return (
-        <GridContainer >
+        <GridContainer>
             <GridItem xs={12} sm={12} md={12}>
 
                 <MaterialTable size="small" aria-label="a dense table"
                                title="爬虫数据："
                                columns={columns}
-                               data={records.map((prop,i)=>{
+                               data={records.map((prop, i) => {
                                    let tmpTime = new Date(prop.crawlerStartTime);
-                                   let formatDate = tmpTime.toLocaleString('en-GB', { timeZone: 'UTC' });
+                                   let formatDate = tmpTime.toLocaleString('en-GB', {timeZone: 'UTC'});
                                    //formatDate = tmpTime.toISOString();
-                                   return Object.assign({}, prop, {'No.': i+1,'crawlerStartTime':formatDate});
+                                   return Object.assign({}, prop, {'No.': i + 1, 'crawlerStartTime': formatDate});
                                })}
 
                                onRowClick={((evt, selectedRow) => {
@@ -104,10 +104,10 @@ function CrawlerPage(props) {
                                    cellStyle: {
                                        color: '#000000',
                                    },
-                                   search:false,
+                                   search: false,
                                    padding: 'dense',
-                                   minBodyHeight:440,
-                                   maxBodyHeight:600,
+                                   minBodyHeight: 440,
+                                   maxBodyHeight: 600,
                                    //selection: true,
                                }}
                                actions={[
@@ -159,24 +159,25 @@ function CrawlerPage(props) {
                                components={{
                                    Toolbar: props => {
                                        return (
-                                       <Box style={{ backgroundColor: '#e8eaf5',height:"50px" }} ml={2}>
-                                           {props.actions.filter(prop => prop.position==="toolbar").map((prop,key)=>{
-                                               return (
-                                                       <Button style={{marginLeft:10}}
-                                                           variant="contained"
-                                                           color="primary"
-                                                           startIcon={<Icon>{prop.icon}</Icon>}
-                                                           key={key}
-                                                           onClick={(event,args) => {
-                                                               prop.onClick();
-                                                           }}
+                                           <Box style={{backgroundColor: '#e8eaf5', height: "50px"}} ml={2}>
+                                               {props.actions.filter(prop => prop.position === "toolbar").map((prop, key) => {
+                                                   return (
+                                                       <Button style={{marginLeft: 10}}
+                                                               variant="contained"
+                                                               color="primary"
+                                                               startIcon={<Icon>{prop.icon}</Icon>}
+                                                               key={key}
+                                                               onClick={(event, args) => {
+                                                                   prop.onClick();
+                                                               }}
                                                        >
                                                            {prop.tooltip}
                                                        </Button>
-                                               );
-                                           })}
-                                       </Box>
-                                   )}
+                                                   );
+                                               })}
+                                           </Box>
+                                       )
+                                   }
                                }}
 
                 />

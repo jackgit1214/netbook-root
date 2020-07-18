@@ -19,13 +19,13 @@ const switchRoutes = (
     <Switch>
         {routes.map((prop, key) => {
             console.log(prop.path);
-                return (
-                    <Route
-                        path={ prop.path}
-                        component={prop.component}
-                        key={key}
-                    />
-                );
+            return (
+                <Route
+                    path={prop.path}
+                    component={prop.component}
+                    key={key}
+                />
+            );
 
         })}
 
@@ -36,7 +36,7 @@ function Home() {
     let classes = useStyles();
     let [open, setOpen] = React.useState(true);
 
-    let handleDrawer = () =>{
+    let handleDrawer = () => {
         if (open)
             setOpen(false);
         else
@@ -45,15 +45,15 @@ function Home() {
     return (
         <div className={classes.root}>
             <CssBaseline/>
-                <Header open={open} openMethod={handleDrawer} />
-                <Menu open={open} routes={routes} />
+            <Header open={open} openMethod={handleDrawer}/>
+            <Menu open={open} routes={routes}/>
 
             <main className={classes.content}>
-                <div className={classes.appBarSpacer} />
+                <div className={classes.appBarSpacer}/>
                 <Container maxWidth="lg" className={classes.container}>
                     {switchRoutes}
                 </Container>
-                <Copyright />
+                <Copyright/>
             </main>
 
         </div>

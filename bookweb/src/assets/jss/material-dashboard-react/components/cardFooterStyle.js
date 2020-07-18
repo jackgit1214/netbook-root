@@ -1,47 +1,47 @@
-import { grayColor } from "assets/jss/material-dashboard-react.js";
+import {grayColor} from "assets/jss/material-dashboard-react.js";
 
 const cardFooterStyle = {
-  cardFooter: {
-    padding: "0",
-    paddingTop: "2px",
-    margin: "0 5px 2px",
-    borderRadius: "0",
-    justifyContent: "space-between",
-    alignItems: "center",
-    display: "flex",
-    backgroundColor: "transparent",
-    border: "0"
-  },
-  cardFooterProfile: {
-    marginTop: "-15px"
-  },
-  cardFooterPlain: {
-    paddingLeft: "5px",
-    paddingRight: "5px",
-    backgroundColor: "transparent"
-  },
-  cardFooterStats: {
-    borderTop: "1px solid " + grayColor[10],
-    marginTop: "20px",
-    "& svg": {
-      position: "relative",
-      top: "4px",
-      marginRight: "3px",
-      marginLeft: "3px",
-      width: "16px",
-      height: "16px"
+    cardFooter: {
+        padding: "0",
+        paddingTop: "2px",
+        margin: "0 5px 2px",
+        borderRadius: "0",
+        justifyContent: "space-between",
+        alignItems: "center",
+        display: "flex",
+        backgroundColor: "transparent",
+        border: "0"
     },
-    "& .fab,& .fas,& .far,& .fal,& .material-icons": {
-      fontSize: "16px",
-      position: "relative",
-      top: "4px",
-      marginRight: "3px",
-      marginLeft: "3px"
+    cardFooterProfile: {
+        marginTop: "-15px"
+    },
+    cardFooterPlain: {
+        paddingLeft: "5px",
+        paddingRight: "5px",
+        backgroundColor: "transparent"
+    },
+    cardFooterStats: {
+        borderTop: "1px solid " + grayColor[10],
+        marginTop: "20px",
+        "& svg": {
+            position: "relative",
+            top: "4px",
+            marginRight: "3px",
+            marginLeft: "3px",
+            width: "16px",
+            height: "16px"
+        },
+        "& .fab,& .fas,& .far,& .fal,& .material-icons": {
+            fontSize: "16px",
+            position: "relative",
+            top: "4px",
+            marginRight: "3px",
+            marginLeft: "3px"
+        }
+    },
+    cardFooterChart: {
+        borderTop: "1px solid " + grayColor[10]
     }
-  },
-  cardFooterChart: {
-    borderTop: "1px solid " + grayColor[10]
-  }
 };
 
 export default cardFooterStyle;

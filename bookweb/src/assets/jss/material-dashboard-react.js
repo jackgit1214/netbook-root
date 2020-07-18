@@ -54,8 +54,8 @@ const hexToRgb = input => {
 const drawerWidth = 260;
 const headerBarHeight = 72;
 const footerBarHeight = 52;
-const queryHeight=50; //查询区域默认高度
-const tableHeight = headerBarHeight + footerBarHeight  + queryHeight + 10;
+const queryHeight = 50; //查询区域默认高度
+const tableHeight = headerBarHeight + footerBarHeight + queryHeight + 10;
 
 const transition = {
     transition: 'all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1)',

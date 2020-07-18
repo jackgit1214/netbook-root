@@ -61,8 +61,8 @@ const sidebarStyle = theme => ({
             width: theme.spacing(8),
         },
     },
-    elementShow:{
-        display:'none'
+    elementShow: {
+        display: 'none'
     },
     drawerPaperRTL: {
         [theme.breakpoints.up("md")]: {

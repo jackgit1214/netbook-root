@@ -53,29 +53,29 @@ const headerStyle = () => ({
     appResponsive: {
         top: '8px',
     },
-     purple : {
-        backgroundColor: primaryColor[0]+"!important",
-        color: whiteColor+"!important",
+    purple: {
+        backgroundColor: primaryColor[0] + "!important",
+        color: whiteColor + "!important",
         ...defaultBoxShadow,
     },
     blue: {
-        backgroundColor: infoColor[0] +"!important",
-        color: whiteColor+"!important",
+        backgroundColor: infoColor[0] + "!important",
+        color: whiteColor + "!important",
         ...defaultBoxShadow,
     },
     green: {
-        backgroundColor: successColor[0]+"!important",
-        color: whiteColor+"!important",
+        backgroundColor: successColor[0] + "!important",
+        color: whiteColor + "!important",
         ...defaultBoxShadow,
     },
     orange: {
-        backgroundColor: warningColor[0]+"!important",
-        color: whiteColor+"!important",
+        backgroundColor: warningColor[0] + "!important",
+        color: whiteColor + "!important",
         ...defaultBoxShadow,
     },
     red: {
-        backgroundColor: dangerColor[0]+"!important",
-        color: whiteColor+"!important",
+        backgroundColor: dangerColor[0] + "!important",
+        color: whiteColor + "!important",
         ...defaultBoxShadow,
     },
 

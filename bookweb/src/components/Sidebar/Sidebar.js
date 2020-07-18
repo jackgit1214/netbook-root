@@ -37,8 +37,8 @@ export default function Sidebar(props) {
 
     // verifies if routeName is the one active (in browser input)
     function activeRoute(routeName) {
-        let curRouteName = window.location.href.replace(window.location.origin,"");
-        return (curRouteName===routeName) ? true : false;
+        let curRouteName = window.location.href.replace(window.location.origin, "");
+        return (curRouteName === routeName) ? true : false;
     }
 
     // const [open, setOpen] = React.useState(true);
@@ -51,7 +51,7 @@ export default function Sidebar(props) {
 
         <List className={classes.list}>
             {routes.map((prop, key) => {
-                if (prop.name=="divider")
+                if (prop.name == "divider")
                     return (<Divider key={key}/>);
 
                 var activePro = ' ';
@@ -69,7 +69,7 @@ export default function Sidebar(props) {
                         activeClassName="active"
                         key={key}
                     >
-                        <ListItem button className={classes.itemLink + listItemClasses} >
+                        <ListItem button className={classes.itemLink + listItemClasses}>
                             {typeof prop.icon === 'string' ? (
                                 <Icon
                                     className={classNames(classes.itemIcon, whiteFontClasses, {
@@ -101,10 +101,10 @@ export default function Sidebar(props) {
     );
     var brand = (
         <div className={classes.logo}>
-            <a  className={classNames(classes.logoLink, {
-                    [classes.logoLinkRTL]: props.rtlActive,
-                })}
-                target="_blank"
+            <a className={classNames(classes.logoLink, {
+                [classes.logoLinkRTL]: props.rtlActive,
+            })}
+               target="_blank"
             >
                 <div className={classes.logoImage}>
                     <props.logo/>

@@ -11,8 +11,8 @@ import {
 
 const tableStyle = theme => ({
 
-    checkboxLabel:{
-        width:35
+    checkboxLabel: {
+        width: 35
     },
 
     warningTableHeader: {
@@ -79,10 +79,10 @@ const tableStyle = theme => ({
         verticalAlign: 'middle',
     },
     tableTurnPage: {
-        backgroundColor:'#f0e5c7',
-        minHeight:"35px"
+        backgroundColor: '#f0e5c7',
+        minHeight: "35px"
     },
-    tableContainer:{
+    tableContainer: {
         width: '100%',
         overflowX: 'auto',
         minHeight: 340,

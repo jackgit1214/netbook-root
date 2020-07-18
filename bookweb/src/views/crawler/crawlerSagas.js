@@ -1,13 +1,13 @@
-import {takeEvery, put, take, call, fork } from 'redux-saga/effects'
+import {takeEvery, put, take, call, fork} from 'redux-saga/effects'
 
 import {request} from '../../utils/request';
-import {refreshPage,retrieveCrawler} from './crawlerAction'
+import {refreshPage, retrieveCrawler} from './crawlerAction'
 
 export function* watchRequestTypeList() {
 
     //while ((true)){
-    yield takeEvery("RETRIEVE_DATA",getData);
-    yield takeEvery("DEL",delData);
+    yield takeEvery("RETRIEVE_DATA", getData);
+    yield takeEvery("DEL", delData);
 
     //}
 
@@ -18,14 +18,15 @@ export function* watchRequestTypeList() {
     //     yield fork(getData);
     // }
 }
-function* delData(action){
+
+function* delData(action) {
     let delData = action.rowDatas;
     let param = JSON.stringify(delData)
-    const result = yield call(request, 'fetch/delCrawlerRecord', 'post',param);
+    const result = yield call(request, 'fetch/delCrawlerRecord', 'post', param);
     yield put(retrieveCrawler());
 }
 
-function* getData(){
-    const dataList = yield call(request, 'fetch/getPageRecord', 'post','');
+function* getData() {
+    const dataList = yield call(request, 'fetch/getPageRecord', 'post', '');
     yield put(refreshPage(dataList));
 }

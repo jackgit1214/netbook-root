@@ -10,37 +10,37 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 
 import useStyles from '../../style/style';
 
-function WebHeader(props){
+function WebHeader(props) {
     let classes = useStyles();
 
     let open = props.open;
 
-    let handleMenu= ()=>{
+    let handleMenu = () => {
         props.openMethod();
     }
-    return    (
-    <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-        <Toolbar className={classes.toolbar}>
-            <IconButton
-                edge="start"
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleMenu}
-                className={clsx(classes.menuButton)} //open && classes.menuButtonHidden
-            >
-                <MenuIcon/>
-            </IconButton>
-            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                网站后台监控系统
-            </Typography>
-            <IconButton color="inherit">
-                <Badge badgeContent={4} color="secondary">
-                    <NotificationsIcon/>
-                </Badge>
-            </IconButton>
-        </Toolbar>
-    </AppBar>
+    return (
+        <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+            <Toolbar className={classes.toolbar}>
+                <IconButton
+                    edge="start"
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={handleMenu}
+                    className={clsx(classes.menuButton)} //open && classes.menuButtonHidden
+                >
+                    <MenuIcon/>
+                </IconButton>
+                <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+                    网站后台监控系统
+                </Typography>
+                <IconButton color="inherit">
+                    <Badge badgeContent={4} color="secondary">
+                        <NotificationsIcon/>
+                    </Badge>
+                </IconButton>
+            </Toolbar>
+        </AppBar>
     )
 }
 
-export  default WebHeader;
+export default WebHeader;

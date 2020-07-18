@@ -1,4 +1,10 @@
-import {container, drawerWidth, headerBarHeight,footerBarHeight,transition} from 'assets/jss/material-dashboard-react.js';
+import {
+    container,
+    drawerWidth,
+    headerBarHeight,
+    footerBarHeight,
+    transition
+} from 'assets/jss/material-dashboard-react.js';
 
 const appStyle = theme => ({
     wrapper: {
@@ -18,7 +24,7 @@ const appStyle = theme => ({
         width: '100%',
         overflowScrolling: 'touch',
     },
-    mainPanel_expand:{
+    mainPanel_expand: {
         width: `calc(100% - 60px)`,
     },
     mainContent: {
@@ -27,12 +33,12 @@ const appStyle = theme => ({
 
 
     },
-    container:{
+    container: {
         ...container,
-        paddingLeft:"1px",
-        paddingRight:"1px",
+        paddingLeft: "1px",
+        paddingRight: "1px",
         height: `calc(100vh - ${headerBarHeight}px - ${footerBarHeight}px -  ${10}px)`, //需要计算 去除bar,footer以及paddingTop,paddingBottom值
-        overflowY:"auto",
+        overflowY: "auto",
     },
     map: {
         marginTop: '70px',

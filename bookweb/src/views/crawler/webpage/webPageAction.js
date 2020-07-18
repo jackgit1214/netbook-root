@@ -2,14 +2,14 @@
  * 固定的ACTION类型
  * @type {{GET_PAGE_RECORD: string, PAGE_HANDLE: string, DEL_PAGE_RECORD: string, REFRESH_PAGE: string, RETRIEVE_DATA: string}}
  */
-export  const actionType={
-    GET_PAGE_RECORD:'getPageRecord',
-    PAGE_HANDLE:'pageHandle',
-    RESTART_CRAWLER_PAGE:'restartCrawlerPage',
-    DEL_PAGE_RECORD:'deletePageRecord',
-    REFRESH_PAGE:'refreshPage',
-    PAGE_RESPONSE:'pageResponse',
-    RETRIEVE_DATA:'retrieveData',
+export const actionType = {
+    GET_PAGE_RECORD: 'getPageRecord',
+    PAGE_HANDLE: 'pageHandle',
+    RESTART_CRAWLER_PAGE: 'restartCrawlerPage',
+    DEL_PAGE_RECORD: 'deletePageRecord',
+    REFRESH_PAGE: 'refreshPage',
+    PAGE_RESPONSE: 'pageResponse',
+    RETRIEVE_DATA: 'retrieveData',
 }
 
 
@@ -35,13 +35,13 @@ export function refreshPage(responseResult) {
     let result = responseResult.resultData;
     return {
         type: actionType.REFRESH_PAGE,
-        dataResult:result.pageDatas,
-        code:responseResult.code,
-        pageInfo:{
-            totalRows:result.totalSize,
-            curPage:result.curPage, //当前页码
-            lastPage:result.lastPage, //总页数、最后一页面页码
-            pageRows:result.pageSize, //每页行数
+        dataResult: result.pageDatas,
+        code: responseResult.code,
+        pageInfo: {
+            totalRows: result.totalSize,
+            curPage: result.curPage, //当前页码
+            lastPage: result.lastPage, //总页数、最后一页面页码
+            pageRows: result.pageSize, //每页行数
         }
     };
 }
@@ -54,11 +54,11 @@ export function refreshPage(responseResult) {
 export function pageResponse(responseResult) {
     return {
         type: actionType.PAGE_RESPONSE,
-        result:{
-            code:responseResult.code,
-            message:responseResult.message,
-            errorInfo:responseResult.errorInfo,
-            id:responseResult.resultData
+        result: {
+            code: responseResult.code,
+            message: responseResult.message,
+            errorInfo: responseResult.errorInfo,
+            id: responseResult.resultData
         }
 
     };
@@ -70,9 +70,9 @@ export function pageResponse(responseResult) {
  * @returns {{type: string, records: *}}
  */
 export function delPageRecord(records) {
-     return {
+    return {
         type: actionType.DEL_PAGE_RECORD,
-         params:records
+        params: records
     };
 }
 
@@ -84,7 +84,7 @@ export function delPageRecord(records) {
 export function handlePageContent(records) {
     return {
         type: actionType.PAGE_HANDLE,
-        params:records
+        params: records
     };
 }
 

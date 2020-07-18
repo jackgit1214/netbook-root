@@ -26,13 +26,13 @@ export default function App() {
 
                 <Switch>
                     <Route path="/about">
-                        <About />
+                        <About/>
                     </Route>
                     <Route path="/topics">
-                        <Topics />
+                        <Topics/>
                     </Route>
                     <Route path="/">
-                        <Home />
+                        <Home/>
                     </Route>
                 </Switch>
             </div>
@@ -72,7 +72,7 @@ function Topics() {
           the page that is shown when no topic is selected */}
             <Switch>
                 <Route path={`${match.path}/:topicId`}>
-                    <Topic />
+                    <Topic/>
                 </Route>
                 <Route path={match.path}>
                     <h3>Please select a topic.</h3>
@@ -83,6 +83,6 @@ function Topics() {
 }
 
 function Topic() {
-    let { topicId } = useParams();
+    let {topicId} = useParams();
     return <h3>Requested topic ID: {topicId}</h3>;
 }

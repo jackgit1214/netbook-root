@@ -1,20 +1,21 @@
-
 const initialDataState = {
     loading: false,
     datas: [],
     columnTitles: [
-        {title: '序号', field: 'No.',cellStyle: {
+        {
+            title: '序号', field: 'No.', cellStyle: {
                 backgroundColor: '#039be5',
                 color: '#FFF',
-                width:'70px'
+                width: '70px'
             },
             headerStyle: {
                 backgroundColor: '#039be5',
-                width:'70px'
-            }},
+                width: '70px'
+            }
+        },
         {title: '网站URL', field: 'crawlerUrl'},
         {title: '开始时间', field: 'crawlerStartTime', type: 'date'},
-        {title: '是否完成', field: 'isFinished', lookup: { 1: '异常', 2: '完成' },}
+        {title: '是否完成', field: 'isFinished', lookup: {1: '异常', 2: '完成'},}
 
     ]
 };
@@ -23,7 +24,7 @@ const crawlerReducers = (state = initialDataState, action) => {
     switch (action.type) {
         case 'ADD':
             let newDatas = {
-                'No.': state.datas.length+1,
+                'No.': state.datas.length + 1,
                 crawlerUrl: 'www.test.com',
                 crawlerStartTime: '2019-12-31',
                 isFinished: 1,

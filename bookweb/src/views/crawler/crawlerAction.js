@@ -5,13 +5,15 @@ export function addCrawlerConfig(args) {
         type: 'ADD'
     };
 }
+
 export function delCrawlerConfig(rowDatas) {
     //console.log(rowDatas);
-     return {
+    return {
         type: 'DEL',
-         rowDatas
+        rowDatas
     };
 }
+
 export function saveCrawlerConfig() {
 
     console.log("----------save-----Action----------------------")
@@ -19,6 +21,7 @@ export function saveCrawlerConfig() {
         type: 'SAVE'
     };
 }
+
 export function refreshPage(dataList) {
     return {
         type: 'REFRESHPAGE',//''types.RECEIVE_TYPE_LIST,
@@ -26,6 +29,7 @@ export function refreshPage(dataList) {
     };
 
 }
+
 export function retrieveCrawler(retrieveArgsment) {
     return {
         type: 'RETRIEVE_DATA',//''types.RECEIVE_TYPE_LIST,

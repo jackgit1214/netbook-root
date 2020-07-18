@@ -19,11 +19,11 @@ import {
     Link
 } from "react-router-dom";
 
-function customMenuLink({ label, to, activeOnlyWhenExact }) {
+function customMenuLink({label, to, activeOnlyWhenExact}) {
 
 
     return (
-        <div >
+        <div>
 
             <Link to={to}>{label}</Link>
         </div>
@@ -39,16 +39,16 @@ export default function CustomLinkExample() {
                     to="/"
                     label="Home"
                 />
-                <customMenuLink to="/about" label="About" />
+                <customMenuLink to="/about" label="About"/>
 
-                <hr />
+                <hr/>
 
                 <Switch>
                     <Route exact path="/">
                         <Copyright/>
                     </Route>
                     <Route path="/about">
-                        <Chart />
+                        <Chart/>
                     </Route>
                 </Switch>
             </div>
@@ -58,69 +58,69 @@ export default function CustomLinkExample() {
 
 export const mainListItems = (
 
-  <Router>
-      <List component="nav" aria-label="打开首页">
-    <ListItem  >
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-        <Link to="/" >
-            <ListItemText primary="首页" />
-        </Link>
+    <Router>
+        <List component="nav" aria-label="打开首页">
+            <ListItem>
+                <ListItemIcon>
+                    <DashboardIcon/>
+                </ListItemIcon>
+                <Link to="/">
+                    <ListItemText primary="首页"/>
+                </Link>
 
-    </ListItem>
-    <ListItem button >
-      <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
-        <Link to="/test" >
-            <ListItemText primary="Charts" />
-        </Link>
+            </ListItem>
+            <ListItem button>
+                <ListItemIcon>
+                    <ShoppingCartIcon/>
+                </ListItemIcon>
+                <Link to="/test">
+                    <ListItemText primary="Charts"/>
+                </Link>
 
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <ListItemText primary="Customers" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Reports" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Integrations" />
+            </ListItem>
+            <ListItem button>
+                <ListItemIcon>
+                    <PeopleIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Customers"/>
+            </ListItem>
+            <ListItem button>
+                <ListItemIcon>
+                    <BarChartIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Reports"/>
+            </ListItem>
+            <ListItem button>
+                <ListItemIcon>
+                    <LayersIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Integrations"/>
 
-    </ListItem>
-      </List>
-  </Router>
+            </ListItem>
+        </List>
+    </Router>
 );
 
 export const secondaryListItems = (
-  <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Current month" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItem>
-  </div>
+    <div>
+        <ListSubheader inset>Saved reports</ListSubheader>
+        <ListItem button>
+            <ListItemIcon>
+                <AssignmentIcon/>
+            </ListItemIcon>
+            <ListItemText primary="Current month"/>
+        </ListItem>
+        <ListItem button>
+            <ListItemIcon>
+                <AssignmentIcon/>
+            </ListItemIcon>
+            <ListItemText primary="Last quarter"/>
+        </ListItem>
+        <ListItem button>
+            <ListItemIcon>
+                <AssignmentIcon/>
+            </ListItemIcon>
+            <ListItemText primary="Year-end sale"/>
+        </ListItem>
+    </div>
 );

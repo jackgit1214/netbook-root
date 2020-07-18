@@ -12,7 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
-import { useSelector ,useStore } from 'react-redux'
+import {useSelector, useStore} from 'react-redux'
 import Button from 'components/CustomButtons/Button.js';
 import CustomDialog from 'components/Dialog/CustomDialog';
 import Search from '@material-ui/icons/Search';
@@ -36,7 +36,7 @@ const useStyles = makeStyles({
     textFieldRoot: {
         marginLeft: 10,
     },
-    inputMargin:{
+    inputMargin: {
         paddingTop: 10,
         paddingBottom: 1,
     },
@@ -87,37 +87,39 @@ const useStyles = makeStyles({
     fabProgress: {
         color: "red",
         position: 'absolute',
-        left:12,
-        top:0,
+        left: 12,
+        top: 0,
         zIndex: 1,
     }
 });
 
 function SlideTransition(props) {
-    return <Slide {...props} direction="down" />;
+    return <Slide {...props} direction="down"/>;
 }
 
 function WebPageHandle(props) {
 
     const classes = useStyles();
     let pageActions = props.webPageAction;
-    const {register, handleSubmit, triggerValidation, watch, errors,getValues} = useForm({defaultValues: {
+    const {register, handleSubmit, triggerValidation, watch, errors, getValues} = useForm({
+        defaultValues: {
             isFinished: "99",
             crawlerUrl: "",
-        }});
-    const pageInfo = props.webPage.pageInfo;
-    const [queryInfo,setQueryInfo] = React.useState({isFinished:"",crawlerUrl:""});
-    const [dialogStatus, setDialogStatus] = React.useState({
-        open:false,
-        winType:1,
-        infoType:'Info',
-        infoContent:'默认提示信息'
+        }
     });
-    const code= useSelector(state => state.webPage.code);
-    const message= useSelector(state => state.webPage.message);
-    const loading=useSelector(state=>state.webPage.loading);
-    const actionLoading = useSelector(state=>state.webPage.actionLoading);
-    const [snackBarStatus,setSnackBarStatus] = React.useState(false);
+    const pageInfo = props.webPage.pageInfo;
+    const [queryInfo, setQueryInfo] = React.useState({isFinished: "", crawlerUrl: ""});
+    const [dialogStatus, setDialogStatus] = React.useState({
+        open: false,
+        winType: 1,
+        infoType: 'Info',
+        infoContent: '默认提示信息'
+    });
+    const code = useSelector(state => state.webPage.code);
+    const message = useSelector(state => state.webPage.message);
+    const loading = useSelector(state => state.webPage.loading);
+    const actionLoading = useSelector(state => state.webPage.actionLoading);
+    const [snackBarStatus, setSnackBarStatus] = React.useState(false);
     let columns = props.webPage.columnTitles;
     let records = props.webPage.dataRecords;
     React.useEffect(() => {
@@ -127,30 +129,30 @@ function WebPageHandle(props) {
 
     React.useEffect(() => {
         //监控消息变化，如何需要显示，即弹出提示
-        if (message!="" && message!=undefined){
+        if (message != "" && message != undefined) {
             setSnackBarStatus(true);
         }
-        if (code && code==1){ //需要刷新页面时
+        if (code && code == 1) { //需要刷新页面时
             retrieveData({
-                curPage:pageInfo.curPage,
-                pageSize:pageInfo.pageRows
+                curPage: pageInfo.curPage,
+                pageSize: pageInfo.pageRows
             })
         }
     }, [message]);
 
     React.useEffect(() => {
         retrieveData({
-            curPage:1,
-            pageSize:pageInfo.pageRows
+            curPage: 1,
+            pageSize: pageInfo.pageRows
         })
     }, []);
 
-    const retrieveData = (pageParams,queryParam)=>{
+    const retrieveData = (pageParams, queryParam) => {
         //console.log("-----------"+new Date())
         let tmpQuery = {
             otherParams: {
-                isFinished: queryParam?queryParam.isFinished : queryInfo.isFinished,
-                crawlerUrl: queryParam?queryParam.crawlerUrl:queryInfo.crawlerUrl,
+                isFinished: queryParam ? queryParam.isFinished : queryInfo.isFinished,
+                crawlerUrl: queryParam ? queryParam.crawlerUrl : queryInfo.crawlerUrl,
             },
             pageInfo: {
                 curPage: pageParams.curPage,
@@ -167,7 +169,7 @@ function WebPageHandle(props) {
             crawlerUrl: formValue.crawlerUrl,
         })
         setQueryInfo(tmpQueryInfo);
-        retrieveData({pageSize:pageInfo.pageRows,curPage:1},tmpQueryInfo);
+        retrieveData({pageSize: pageInfo.pageRows, curPage: 1}, tmpQueryInfo);
     };
 
     const handleSubmitError = (obj) => {
@@ -180,50 +182,51 @@ function WebPageHandle(props) {
     };
 
     const restartCrawlerUrl = (id, url) => {
-        function handleAlertClose (status,param){
+        function handleAlertClose(status, param) {
             let params = {
                 otherParams: {
                     url: url,
-                    id:id
+                    id: id
                 }
             };
             if (param)
                 pageActions.restartCrawlerPage(params)
-            setDialogStatus(Object.assign({},dialogStatus,{open:status}));
+            setDialogStatus(Object.assign({}, dialogStatus, {open: status}));
         }
+
         let tmpWin = {
-            open:true,
-            winType:21,
+            open: true,
+            winType: 21,
             infoContent: "确定要重新抓取网页吗？",
-            handleClose:handleAlertClose
+            handleClose: handleAlertClose
         }
-        setDialogStatus(Object.assign({},dialogStatus,tmpWin));
+        setDialogStatus(Object.assign({}, dialogStatus, tmpWin));
     };
 
-    const handlePage=(rows)=>{
+    const handlePage = (rows) => {
 
         let params = {
-            otherParams:{
-                ids:[rows.logId.toString()],
-                single:true,
+            otherParams: {
+                ids: [rows.logId.toString()],
+                single: true,
             }
 
         };
         let conf = window.confirm("确认要处理页面吗？")
-        if (conf){
+        if (conf) {
             pageActions.handlePageContent(params)
         }
     };
-    const pageDataDelete=(rows)=>{
+    const pageDataDelete = (rows) => {
         let params = {
-            otherParams:{
-                ids:[rows.logId],
-                single:true,
+            otherParams: {
+                ids: [rows.logId],
+                single: true,
             }
 
         };
         let conf = window.confirm("确定要删除当前记录吗？")
-        if (conf){
+        if (conf) {
             pageActions.delPageRecord(params)
         }
     }
@@ -241,13 +244,17 @@ function WebPageHandle(props) {
                     timeout: 500,
                 }}
             >
-                <CircularProgress color="secondary" />
+                <CircularProgress color="secondary"/>
             </Modal>
-            <CustomDialog status={dialogStatus.open} handleClose={dialogStatus.handleClose}  windowType={dialogStatus.winType} infoContent={dialogStatus.infoContent} infoType={dialogStatus.infoType}/>
+            <CustomDialog status={dialogStatus.open} handleClose={dialogStatus.handleClose}
+                          windowType={dialogStatus.winType} infoContent={dialogStatus.infoContent}
+                          infoType={dialogStatus.infoType}/>
             <Snackbar open={snackBarStatus} autoHideDuration={3000}
                       TransitionComponent={SlideTransition}
-                      onClose={()=>{setSnackBarStatus(false)}}
-                      anchorOrigin={{ vertical:'top',horizontal:"center" }} >
+                      onClose={() => {
+                          setSnackBarStatus(false)
+                      }}
+                      anchorOrigin={{vertical: 'top', horizontal: "center"}}>
                 <Alert elevation={6} variant="filled" severity="success">
                     {/*<AlertTitle>消息提示</AlertTitle>*/}
                     {message}
@@ -278,7 +285,11 @@ function WebPageHandle(props) {
                                        classes={{root: classes.textFieldRoot}}
                                        size="small"
                                        InputLabelProps={{classes: {root: classes.labelRoot}}}
-                                       InputProps={{id: 'crawlerUrl', name: 'crawlerUrl', classes: {root: classes.marginTop,inputMarginDense:classes.inputMargin}}}
+                                       InputProps={{
+                                           id: 'crawlerUrl',
+                                           name: 'crawlerUrl',
+                                           classes: {root: classes.marginTop, inputMarginDense: classes.inputMargin}
+                                       }}
                                        inputRef={register}/>
                         </Grid>
                         <Grid item xs={2}>
@@ -295,10 +306,10 @@ function WebPageHandle(props) {
                 </form>
             </Paper>
             <Paper className={classes.tableMainWrapper}>
-                 <CustomTable
+                <CustomTable
                     tableHeaderColor="primary"
                     tableHead={columns}
-                    tableData={records!=null?records:[]}
+                    tableData={records != null ? records : []}
                     physicalPageHandle={retrieveData}
                     primaryKey={'primaryKey'}
                     Sequence={true}
@@ -307,29 +318,29 @@ function WebPageHandle(props) {
                     actions={[
                         {
                             key: 'craw_',
-                            id:"logId",
+                            id: "logId",
                             icon: 'refresh',
                             tooltip: '重新抓取',
-                            actionSuccess:actionLoading,
+                            actionSuccess: actionLoading,
                             onClick: (rowData) => {
                                 restartCrawlerUrl(rowData.logId, rowData.crawlerUrl)
                             },
                         },
                         {
-                            key:'handle_',
-                            id:"logId",
+                            key: 'handle_',
+                            id: "logId",
                             icon: 'archive',
-                            actionSuccess:actionLoading,
+                            actionSuccess: actionLoading,
                             tooltip: '内容处理',
                             onClick: (rowData) => {
                                 handlePage(rowData);
                             },
                         },
                         {
-                            key:'del_',
-                            id:"logId",
+                            key: 'del_',
+                            id: "logId",
                             icon: 'delete',
-                            actionSuccess:actionLoading,
+                            actionSuccess: actionLoading,
                             tooltip: '删除',
                             onClick: (rowData) => {
                                 pageDataDelete(rowData)

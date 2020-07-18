@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // @material-ui/core components
-import {withStyles,makeStyles} from '@material-ui/core/styles';
+import {withStyles, makeStyles} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
@@ -324,10 +324,10 @@ const useStyles_progress = makeStyles(theme => ({
         alignItems: 'center',
     },
     wrapper: {
-        marginLeft:1,
-        marginRight:1,
-        marginTop:0,
-        marginBottom:0,
+        marginLeft: 1,
+        marginRight: 1,
+        marginTop: 0,
+        marginBottom: 0,
         position: 'relative',
     },
     fabProgress: {
@@ -337,18 +337,19 @@ const useStyles_progress = makeStyles(theme => ({
         left: 2,
         zIndex: 1,
     },
-    fabButton:{
-      width:26,
-      height:26,
-        minHeight:28,
-        boxShadow:"none",
-        backgroundColor:"transparent",
+    fabButton: {
+        width: 26,
+        height: 26,
+        minHeight: 28,
+        boxShadow: "none",
+        backgroundColor: "transparent",
         "&:hover": {
             backgroundColor: "transparent",
             boxShadow: "none"
         }
     },
 }));
+
 function OperatorColumn(props) {
     const classes = useStyles();
     const curStyle = useStyles_progress();
@@ -356,27 +357,27 @@ function OperatorColumn(props) {
 
     return (actions ? (<TableCell key="opeartor" align="center"
                                   className={classes.tableCell}>
-        <div className={curStyle.root}>
-            {actions.map(action => {
-                let isLoad = action.actionSuccess[action.key+rowData[action.id]];
-                const tmpClick = () => {
-                    action.onClick(rowData);
-                };
-                return (
-                    <div className={curStyle.wrapper }  key={action.key}>
-                        <Fab
-                            aria-label="save"
-                            color="primary"
-                            size="small" onClick={tmpClick} key={action.key}
-                            classes={{root:curStyle.fabButton}}
-                        >
-                        <Tooltip title={action.tooltip}>
-                            <Icon  color="primary">{action.icon}</Icon>
-                        </Tooltip>
-                        </Fab>
-                        {isLoad && <CircularProgress size={23} className={curStyle.fabProgress} />}
-                    </div>);
-            })}</div>
+            <div className={curStyle.root}>
+                {actions.map(action => {
+                    let isLoad = action.actionSuccess[action.key + rowData[action.id]];
+                    const tmpClick = () => {
+                        action.onClick(rowData);
+                    };
+                    return (
+                        <div className={curStyle.wrapper} key={action.key}>
+                            <Fab
+                                aria-label="save"
+                                color="primary"
+                                size="small" onClick={tmpClick} key={action.key}
+                                classes={{root: curStyle.fabButton}}
+                            >
+                                <Tooltip title={action.tooltip}>
+                                    <Icon color="primary">{action.icon}</Icon>
+                                </Tooltip>
+                            </Fab>
+                            {isLoad && <CircularProgress size={23} className={curStyle.fabProgress}/>}
+                        </div>);
+                })}</div>
         </TableCell>
     ) : (<TableCell><span/></TableCell>));
 }

@@ -13,6 +13,7 @@ import Language from '@material-ui/icons/Language';
 import CrawlerPage from 'views/crawler/CrawlerPage';
 import WebPage from 'views/crawler/webpage/webPageHandle';
 import taskPage from 'views/crawler/task/taskPage';
+import BookPage from 'views/book/BookPage'
 
 const dashboardRoutes = [
     {
@@ -40,8 +41,8 @@ const dashboardRoutes = [
         path: '/bookManage',
         name: '书籍管理',
         icon: LibraryBooks,
-        component: '',
-        layout: '/book',
+        component: BookPage,
+        layout: '/admin',
     },
     {
         path: '/icons',

@@ -1,5 +1,5 @@
 import React from 'react';
-import {makeStyles,withStyles} from '@material-ui/core/styles';
+import {makeStyles, withStyles} from '@material-ui/core/styles';
 import clsx from 'clsx';
 import {
     grayColor,
@@ -29,6 +29,7 @@ import PropTypes from 'prop-types';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import Box from '@material-ui/core/Box/Box';
+
 /**
  * windowType说明
  * 1、提示窗口，即：alter窗口
@@ -64,7 +65,7 @@ CustomDialog.propTypes = {
     escKeyDown: PropTypes.bool,
     backdropClick: PropTypes.bool,
     windowType: PropTypes.number,
-    infoType:PropTypes.oneOf(['Info','Error','Warning','Success']),
+    infoType: PropTypes.oneOf(['Info', 'Error', 'Warning', 'Success']),
 };
 
 export default function CustomDialog(props) {
@@ -102,10 +103,10 @@ export default function CustomDialog(props) {
         handleClose(status);
     };
     const handleYes = () => {
-        handleClose(false,true);
+        handleClose(false, true);
     };
     const handleNo = () => {
-        handleClose(false,false);
+        handleClose(false, false);
     };
 
     const PaperComponent = (props) => {
@@ -118,13 +119,13 @@ export default function CustomDialog(props) {
 
     return (
         <StyleDialog open={open} onClose={handleCloseEvent}
-                aria-labelledby="alert-dialog-title"
-                disableBackdropClick={tmpBackdropClick}
-                disableEscapeKeyDown={tmpEscKeyDown}
-                aria-describedby="alert-dialog-description"
-                PaperComponent={PaperComponent}>
-            <StyleDialogTitle disableTypography={true}   style={{cursor: clsx(draggable && 'move')}}
-                         id={'customDialog' + dialogId}>{title}</StyleDialogTitle>
+                     aria-labelledby="alert-dialog-title"
+                     disableBackdropClick={tmpBackdropClick}
+                     disableEscapeKeyDown={tmpEscKeyDown}
+                     aria-describedby="alert-dialog-description"
+                     PaperComponent={PaperComponent}>
+            <StyleDialogTitle disableTypography={true} style={{cursor: clsx(draggable && 'move')}}
+                              id={'customDialog' + dialogId}>{title}</StyleDialogTitle>
             <StyleDialogContent>
                 {/*<DialogContentText id="alert-dialog-description">*/}
 
@@ -191,16 +192,16 @@ CustomDialogButton.propTypes = {
 };
 
 const StyleDialog = withStyles({
-    paper:{
-        margin:10
+    paper: {
+        margin: 10
     }
 })(Dialog);
 
 const StyleDialogTitle = withStyles({
-    root:{
-        padding:"5px 10px",
-        fontSize:"12px !important",
-        backgroundColor:grayColor[5],
+    root: {
+        padding: "5px 10px",
+        fontSize: "12px !important",
+        backgroundColor: grayColor[5],
     }
 })(DialogTitle);
 
@@ -210,16 +211,16 @@ const StyleDialogContent = withStyles({
     }
 })(DialogContent);
 const StyleDialogActions = withStyles({
-    root:{
-        padding:"2px 2px",
-        justifyContent:"center"
+    root: {
+        padding: "2px 2px",
+        justifyContent: "center"
     }
 })(DialogActions);
 
 const StyleAlert = withStyles({
-    root:{
-        padding:"2px 2px",
-        border:"0px",
-        boxShadow:"none"
+    root: {
+        padding: "2px 2px",
+        border: "0px",
+        boxShadow: "none"
     }
 })(Alert);

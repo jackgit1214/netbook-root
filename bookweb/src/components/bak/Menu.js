@@ -1,4 +1,4 @@
-import React,{Component,useState} from 'react';
+import React, {Component, useState} from 'react';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Divider from '@material-ui/core/Divider/Divider';
@@ -7,22 +7,24 @@ import {mainListItems, secondaryListItems} from './listItems';
 import useStyles from '../../style/style';
 
 class Menu extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         //console.log(this.props.state);
     };
 
-    componentDidMount(){
+    componentDidMount() {
 
     };
 
-    componentDidUpdate(){
+    componentDidUpdate() {
 
     }
+
     handleDrawerOpen = () => {
         //useState(true);
     };
-    componentWillUnmount(){
+
+    componentWillUnmount() {
 
     };
 
@@ -30,26 +32,29 @@ class Menu extends Component {
 
         console.log("------------------------------");
         console.log(this.state)
-        this.props.state=false;
+        this.props.state = false;
         //useState(false);
     };
+
     render() {
         console.log(useStyles());
         return (
             <span>
                 <div className={useStyles.toolbarIcon}>
                     菜单
-                    <IconButton onClick={()=>{this.handleDrawerClose()}}>
-                        <ChevronLeftIcon />
+                    <IconButton onClick={() => {
+                        this.handleDrawerClose()
+                    }}>
+                        <ChevronLeftIcon/>
                     </IconButton>
                 </div>
-                <Divider />
+                <Divider/>
                         <List>{mainListItems}</List>
-                <Divider />
+                <Divider/>
                     <List>{secondaryListItems}</List>
             </span>
         );
     }
 }
 
-export default  Menu;
+export default Menu;

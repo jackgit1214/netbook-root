@@ -12,4 +12,4 @@ function customHomer() {
 
 }
 
-export default  customHomer;
+export default customHomer;

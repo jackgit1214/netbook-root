@@ -39,7 +39,7 @@ const theme = createMuiTheme({
     },
     props: {
         MuiButton: {
-            size:'small'
+            size: 'small'
         }
 
     },
