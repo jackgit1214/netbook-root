@@ -4,6 +4,7 @@ import com.book.model.Booktype;
 import com.book.model.Chapter;
 import com.book.model.Netbook;
 import com.framework.exception.BusinessException;
+import com.framework.mybatis.model.QueryModel;
 import com.framework.mybatis.util.PageResult;
 
 import java.util.List;
@@ -17,6 +18,8 @@ public interface BookService {
     List<Netbook> getNetBookByType(String type);
 
     List<Netbook> getNetBookPageByType(String type, PageResult page);
+
+    List<Netbook> getNetBookPageByType(String type, PageResult page, QueryModel queryModel);
 
     List<Netbook> getNetBookPageByType(String type, int rows, int curpage);
 

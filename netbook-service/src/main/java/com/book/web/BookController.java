@@ -4,28 +4,28 @@ import com.book.model.Booktype;
 import com.book.model.Netbook;
 import com.book.model.ResponseResult;
 import com.book.service.BookService;
+import com.book.web.util.AcceptParams;
 import com.framework.exception.BusinessException;
+import com.framework.mybatis.model.QueryModel;
+import com.framework.mybatis.util.PageResult;
 import com.framework.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import sun.misc.BASE64Encoder;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
-import java.util.Map;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/book")
 public class BookController extends BaseController {
 
     @Autowired
@@ -34,10 +34,51 @@ public class BookController extends BaseController {
     @ResponseBody
     @RequestMapping("/index")
     public ModelAndView mainIndex(String bookId) {
-        System.out.println("----------------9999999999uuuuuuuuuuuuu999999---------");
-
         ModelAndView mav = new ModelAndView("index");
         return mav;
+    }
+
+    /**
+     * 此方法显示图片失败
+     *
+     * @param bookId
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/testimg/{bookId}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<byte[]> getImage(@PathVariable String bookId) throws IOException {
+
+        byte[] bytes = this.bookServiceImpl.getBookImageByBook(bookId);
+        if (bytes == null || bytes.length <= 0) {
+            return new ResponseEntity<byte[]>(HttpStatus.NO_CONTENT);
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+        return new ResponseEntity<byte[]>(bytes, headers, HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "/testimg1/{bookId}", method = RequestMethod.GET)
+    public void getBookImage(@PathVariable String bookId, HttpServletResponse response) throws IOException {
+        InputStream in = null;
+        byte[] data = null;
+        //读取图片字节数组
+        try {
+            in = new FileInputStream("d://10058s.jpg");
+            data = new byte[in.available()];
+            in.read(data);
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        byte[] bytes = this.bookServiceImpl.getBookImageByBook(bookId);
+        response.setContentType("image/png");
+        OutputStream stream;
+        stream = response.getOutputStream();
+        stream.write(bytes);
+        stream.flush();
+        stream.close();
     }
 
     @RequestMapping("/img")
@@ -47,14 +88,11 @@ public class BookController extends BaseController {
         byte[] bytes = this.bookServiceImpl.getBookImageByBook(bookId);
         OutputStream os = null;// 将图像输出到Servlet输出流中。
         try {
-            //ByteArrayInputStream in = new ByteArrayInputStream(bytes);    //将b作为输入流；
-            //BufferedImage image = ImageIO.read(in);
             response.setHeader("Pragma", "no-cache");
             response.setHeader("Cache-Control", "no-cache");
             response.setDateHeader("Expires", 0);
             os = response.getOutputStream();// 将图像输出到Servlet输出流中。
             os.write(bytes);
-            //ImageIO.write(image, "jpeg", sos);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -97,11 +135,38 @@ public class BookController extends BaseController {
         return resResult;
     }
 
+    @CrossOrigin(origins = "*")
     @ResponseBody
-    @RequestMapping(value = "/books")
-    public ResponseResult getBooks(String categoryKey) {
-        List<Netbook> books = this.bookServiceImpl.getNetBookByType(categoryKey);
-        ResponseResult resResult = new ResponseResult("1", "类型获取成功！", books);
-        return resResult;
+    @RequestMapping(value = "/books", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseResult getBooks(@RequestBody AcceptParams queryParams) {
+
+        ResponseResult dataResult = new ResponseResult();
+        String bookType = queryParams.getOtherParams().get("category").toString();
+        PageResult<Netbook> books = (PageResult<Netbook>) queryParams.getPageInfo();
+        QueryModel queryModel = queryParams.paramsToQueryModel();
+        try {
+            this.bookServiceImpl.getNetBookPageByType(bookType, books, queryModel);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        dataResult.setResultData(books);
+        dataResult.setCode("0");
+        dataResult.setMessage("获取数据成功");
+        return dataResult;
+    }
+
+    @CrossOrigin(origins = "*")
+    @ResponseBody
+    @RequestMapping(value = "/shareBook", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseResult shareBook2WX(@RequestBody AcceptParams queryParams) {
+
+        ResponseResult dataResult = new ResponseResult();
+        String bookId = queryParams.getOtherParams().get("bookId").toString();
+
+        dataResult.setResultData("tst");
+        dataResult.setCode("0");
+        dataResult.setMessage("获取数据成功");
+        return dataResult;
     }
 }

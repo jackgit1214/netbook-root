@@ -59,8 +59,30 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Netbook> getNetBookPageByType(String type, PageResult page) {
 
-        QueryModel queryModel = new QueryModel();
-        queryModel.createCriteria().andEqualTo("b.idbooktype", type);
+        QueryModel queryModel = null;
+        if (null != type && !"".equals(type)) {
+            queryModel = new QueryModel();
+            queryModel.createCriteria().andEqualTo("b.idbooktype", type);
+        }
+
+        List<Netbook> books = null;
+        try {
+            this.netbookMapperExt.getBooksByCategory(queryModel, page);
+            books = page.getPageDatas();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return books;
+    }
+
+    @Override
+    public List<Netbook> getNetBookPageByType(String type, PageResult page, QueryModel queryModel) {
+
+
+        if (null != type && !"".equals(type)) {
+            queryModel.createCriteria().andEqualTo("b.idbooktype", type);
+        }
+
         List<Netbook> books = null;
         try {
             this.netbookMapperExt.getBooksByCategory(queryModel, page);
